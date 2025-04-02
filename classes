@@ -1,0 +1,63 @@
+
+class Guest:
+	def __init__(self, firstname:str, lastname:string, birthdate:date, nationality:str, email:str, telnr:int):
+		self.__firstname = firstname
+		self.__lastname = lastname
+		self.__birthdate = birthdate
+		self.__nationality = nationality
+		self.__email = email
+		self.__telnr = telnr
+
+	@property
+	def firstname(self):
+		return self.__firstname
+
+	@property
+	def lastname(self):
+		return self.__lastname
+
+	@property
+	def birthdate(self):
+		return self.__birthdate
+
+	@property
+	def nationality(self):
+		return self.__nationality
+
+	@property
+	def email(self):
+		return self.__email
+
+	@property
+	def telnr(self):
+		return self.__telnr
+
+	def get_guest_details(self):
+		return f"First name: {self.__firstname}, Last name: {self.__lastname}, Birthdate: {self.__birthdate}, 				Nationality: {self.__nationality}, E-mail: {self.__email}, Telephone number: {self.__telnr}"
+
+
+class Address:
+	def __init__(self, street:str, streetnr:int, zip:int, city:str):
+		self.__street = street
+		self.__streetnr = streetnr
+		self.__zip = zip
+		self.__city = city
+
+	@property
+	def street(self):
+		return self.__street
+
+	@property
+	def streetnr(self):
+		return self.__streetnr
+
+	@property
+	def zip(self):
+		return self.__zip
+
+	@property
+	def city(self):
+		return self.__city
+
+	def get_address_details(self):
+		return f"Street: {self.__street}, Street number: {self.__streetnr}, Zip code: {self.__zip}, City: {self.__city}"
