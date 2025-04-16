@@ -5,7 +5,10 @@ This repository belongs to Group 9 from Class B for "Anwendungsentwicklung mit P
 Benjamin Börlin  
 Alex Suter  
 Jiapei Sun  
-Damian Martin  
+Damian Martin
+
+## Project
+Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 
 ## Deliverables
 * Source Code und Artefakte
