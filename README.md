@@ -1,4 +1,5 @@
 # RoomRoam
+This repository belongs to Group 9 from Class B for "Anwendungsentwicklung mit Python" in Business Artifical Intelligence. The objectives of this project is the use of newly learned skills in Python on a tool for hotel reservations.
 
 ## Contributors
 Benjamin Börlin  
