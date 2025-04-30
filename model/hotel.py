@@ -26,7 +26,3 @@ class Hotel:
             f"Hotel[{self.__hotel_id}] {self.__name} - {self.__stars} Sterne\n"
             f"Adresse: {self.__address}"
         )
-#test
-git add . 
-git commit -m "your_message"
-git push
