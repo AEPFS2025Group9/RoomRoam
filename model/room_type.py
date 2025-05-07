@@ -1,3 +1,5 @@
+Base = declarative_base()
+
 class RoomType(Base):
     __tablename__ = 'room_type'
 
