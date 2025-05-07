@@ -1,3 +1,5 @@
+Base = declarative_base()
+
 class Facilities(Base):
     __tablename__ = 'facilities'
 
