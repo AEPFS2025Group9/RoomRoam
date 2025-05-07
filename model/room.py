@@ -1,4 +1,4 @@
-class Room:
+class Room (Base):
     __tablename__ = 'room'
 
     room_id = Column(Integer, primary_key=True)
