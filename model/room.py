@@ -43,4 +43,4 @@ class Room:
 
     def __str__(self):
         fac_names = ', '.join([f.name for f in self._facilities])
-        return f"Room {self._room_number} ({self._room_type.name}) with: {fac_names}
+        return f"Room {self._room_number} ({self._room_type.name}) with: {fac_names}"
