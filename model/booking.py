@@ -1,16 +1,35 @@
-Base = declarative_base()
+class Booking:
+    def __init__(self, booking_id: int, guest_id: int, room_id: int, check_in_date, check_out_date, guest_count: int):
+        self.__booking_id = booking_id
+        self.__guest_id = guest_id
+        self.__room_id = room_id
+        self.__check_in_date = check_in_date
+        self.__check_out_date = check_out_date
+        self.__guest_count = guest_count
 
-class Booking(Base):
-    __tablename__ = 'booking'
+    @property
+    def booking_id(self):
+        return self.__booking_id
 
-    booking_id = Column(Integer, primary_key=True)
-    check_in_date = Column(Date)
-    check_out_date = Column(Date)
-    is_cancelled = Column(Boolean)
-    total_amount = Column(Float)
-    attribute = Column(String)
+    @property
+    def guest_id(self):
+        return self.__guest_id
 
-    guest_id = Column(Integer, ForeignKey('guest.guest_id'))
-    room_id = Column(Integer, ForeignKey('room.room_id'))
+    @property
+    def room_id(self):
+        return self.__room_id
 
-    guest = relationship("Guest", back_populates="bookings")
+    @property
+    def check_in_date(self):
+        return self.__check_in_date
+
+    @property
+    def check_out_date(self):
+        return self.__check_out_date
+
+    @property
+    def guest_count(self):
+        return self.__guest_count
+
+    def get_booking_summary(self):
+        return f"Booking ID: {self.__booking_id}, Guest ID: {self.__guest_id}, Room ID: {self.__room_id}, From: {self.__check_in_date}, To: {self.__check_out_date}, Guests: {self.__guest_count}"
