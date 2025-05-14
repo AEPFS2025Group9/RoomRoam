@@ -1,26 +1,38 @@
-# room_dal.py
+from __future__ import annotations
 
+import model
 from data_access.base_data_access import BaseDataAccess
-from model.room import Room
 
 class RoomDataAccess(BaseDataAccess):
-    def get_rooms_by_hotel(self, hotel_id: int) -> list[Room]:
-        sql = "SELECT RoomId, HotelId, RoomTypeId, Price FROM Room WHERE HotelId = ?"
-        return [Room(*row) for row in self.fetchall(sql, (hotel_id,))]
+    def __init__(self, db_path: str = None):
+        super().__init__(db_path)
 
-    def get_available_rooms(self, hotel_id: int, start_date, end_date) -> list[Room]:
+    def create_room(self, room_number: str, room_type: model.RoomType, hotel_id: int) -> model.Room:
         sql = """
-        SELECT r.RoomId, r.HotelId, r.RoomTypeId, r.Price
-        FROM Room r
-        WHERE r.HotelId = ?
-          AND r.RoomId NOT IN (
-              SELECT b.RoomId FROM Booking b
-              WHERE NOT (b.CheckOutDate <= ? OR b.CheckInDate >= ?)
-          )
+        INSERT INTO Room (RoomNumber, RoomTypeId, HotelId) VALUES (?, ?, ?)
         """
-        return [Room(*row) for row in self.fetchall(sql, (hotel_id, start_date, end_date))]
+        params = (room_number, room_type.room_type_id, hotel_id)
+        last_row_id, _ = self.execute(sql, params)
+        return model.Room(last_row_id, room_number, room_type, hotel_id)
 
-    def update_room_price(self, room_id: int, new_price: float):
-        sql = "UPDATE Room SET Price = ? WHERE RoomId = ?"
-        return self.execute(sql, (new_price, room_id))
+    def read_room_by_id(self, room_id: int) -> model.Room | None:
+        sql = """
+        SELECT RoomId, RoomNumber, RoomTypeId, HotelId FROM Room WHERE RoomId = ?
+        """
+        result = self.fetchone(sql, (room_id,))
+        if result:
+            room_id, room_number, room_type_id, hotel_id = result
+            room_type = model.RoomType(room_type_id)  # erweitern bei Bedarf
+            return model.Room(room_id, room_number, room_type, hotel_id)
+        else:
+            return None
 
+    def update_room(self, room_id: int, new_number: str, room_type_id: int, hotel_id: int):
+        sql = """
+        UPDATE Room SET RoomNumber = ?, RoomTypeId = ?, HotelId = ? WHERE RoomId = ?
+        """
+        self.execute(sql, (new_number, room_type_id, hotel_id, room_id))
+
+    def delete_room(self, room_id: int):
+        sql = "DELETE FROM Room WHERE RoomId = ?"
+        self.execute(sql, (room_id,))
