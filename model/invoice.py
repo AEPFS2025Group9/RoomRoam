@@ -1,5 +1,22 @@
+from datetime import date
+
 class Invoice:
-    def __init__(self, invoice_id: int, booking_id: int, amount: float, issue_date, is_paid: bool = False):
+    """
+    Model Class Invoice
+    """
+
+    def __init__(self, invoice_id: int, booking_id: int, amount: float, issue_date: date, is_paid: bool = False):
+        if not isinstance(invoice_id, int) or invoice_id < 0:
+            raise ValueError("Invoice ID must be a positive integer")
+        if not isinstance(booking_id, int) or booking_id < 0:
+            raise ValueError("Booking ID must be a positive integer")
+        if not isinstance(amount, float) or amount < 0:
+            raise ValueError("Amount must be a non-negative float")
+        if not isinstance(issue_date, date):
+            raise ValueError("Issue date must be a valid date")
+        if not isinstance(is_paid, bool):
+            raise ValueError("is_paid must be a boolean")
+
         self.__invoice_id = invoice_id
         self.__booking_id = booking_id
         self.__amount = amount
@@ -26,5 +43,7 @@ class Invoice:
     def is_paid(self):
         return self.__is_paid
 
-    def get_invoice_summary(self):
-        return f"Invoice ID: {self.__invoice_id}, Booking ID: {self.__booking_id}, Amount: {self.__amount} CHF, Issued: {self.__issue_date}, Paid: {self.__is_paid}"
+    def __str__(self):
+        status = "Paid" if self.__is_paid else "Unpaid"
+        return f"Invoice[{self.__invoice_id}] Booking {self.__booking_id}, {self.__amount:.2f} CHF, Issued {self.__issue_date}, Status: {status}"
+
