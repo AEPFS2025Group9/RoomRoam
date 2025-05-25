@@ -1,0 +1,6 @@
+class AdminManager:
+    def __init__(self):
+        self.booking_dal = BookingDataAccess()
+
+    def get_booking_overview(self):
+        return self.booking_dal.read_all_booking_overview()

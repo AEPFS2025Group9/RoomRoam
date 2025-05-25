@@ -37,4 +37,32 @@ class BookingDataAccess(BaseDataAccess):
         sql = "DELETE FROM Booking WHERE booking_id = ?"
         self.execute(sql, (booking_id,))
 
-
+    def read_all_booking_overview(self) -> list[dict]:
+        sql = """
+        SELECT 
+            b.booking_id,
+            g.first_name || ' ' || g.last_name AS guest_name,
+            h.name AS hotel_name,
+            r.room_number,
+            b.check_in_date,
+            b.check_out_date,
+            b.guest_count
+        FROM Booking b
+        JOIN Guest g ON b.guest_id = g.guest_id
+        JOIN Room r ON b.room_id = r.room_id
+        JOIN Hotel h ON r.hotel_id = h.hotel_id
+        ORDER BY b.check_in_date DESC
+        """
+        rows = self.fetchall(sql)
+        return [
+            {
+                "booking_id": row[0],
+                "guest_name": row[1],
+                "hotel_name": row[2],
+                "room_number": row[3],
+                "check_in_date": row[4],
+                "check_out_date": row[5],
+                "guest_count": row[6],
+            }
+            for row in rows
+        ]

@@ -33,3 +33,14 @@ class InvoiceDataAccess(BaseDataAccess):
         sql = "UPDATE Invoice SET is_paid = 1 WHERE invoice_id = ?"
         self.execute(sql, (invoice_id,))
 
+    def get_invoice_by_booking_id(self, booking_id: int) -> Invoice | None:
+    sql = """
+    SELECT invoice_id, booking_id, amount, issue_date, is_paid
+    FROM Invoice WHERE booking_id = ?
+    """
+    row = self.fetchone(sql, (booking_id,))
+    return Invoice(*row) if row else None
+
+    def delete_invoice(self, invoice_id: int) -> None:
+        sql = "DELETE FROM Invoice WHERE invoice_id = ?"
+        self.execute(sql, (invoice_id,))
