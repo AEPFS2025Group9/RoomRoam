@@ -94,13 +94,11 @@ def input_y_n(prompt: str, default: YesOrNo = None) -> bool:
     n = ['n', 'no']
 
     user_input = input(prompt).strip().lower()
-    match user_input:
-        case _ if user_input in y:
-            return True
-        case _ if user_input in n:
-            return False
-        case _:
-            if user_input == "" and default:
-                return bool(default.value)
-            else:
-                raise ValueError(f"Invalid input. Please enter 'y' or 'n'.")
+    if user_input in y:
+        return True
+    elif user_input in n:
+        return False
+    elif user_input == "" and default:
+        return bool(default.value)
+    else:
+        raise ValueError(f"Invalid input. Please enter 'y' or 'n'.")
