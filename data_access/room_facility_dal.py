@@ -1,11 +1,12 @@
 from data_access.base_data_access import BaseDataAccess
+from typing import List
 
 class RoomFacilityDataAccess(BaseDataAccess):
-    def get_facilities_by_room(self, room_id: int) -> list[int]:
+    def get_facilities_by_room(self, room_id: int) -> List[int]:
         """
         Gibt eine Liste aller FacilityIds zurück, die einem bestimmten Zimmer zugeordnet sind.
         """
-        sql = "SELECT FacilityId FROM Room_Facility WHERE RoomId = ?"
+        sql = "SELECT facility_id FROM Room_Facilities WHERE room_id = ?"
         rows = self.fetchall(sql, (room_id,))
         return [row[0] for row in rows]
 
@@ -13,12 +14,12 @@ class RoomFacilityDataAccess(BaseDataAccess):
         """
         Verknüpft eine Einrichtung mit einem Zimmer.
         """
-        sql = "INSERT INTO Room_Facility (RoomId, FacilityId) VALUES (?, ?)"
+        sql = "INSERT INTO Room_Facilities (room_id, facility_id) VALUES (?, ?)"
         self.execute(sql, (room_id, facility_id))
 
     def remove_facility_from_room(self, room_id: int, facility_id: int) -> None:
         """
         Entfernt die Verknüpfung einer Einrichtung von einem Zimmer.
         """
-        sql = "DELETE FROM Room_Facility WHERE RoomId = ? AND FacilityId = ?"
+        sql = "DELETE FROM Room_Facilities WHERE room_id = ? AND facility_id = ?"
         self.execute(sql, (room_id, facility_id))

@@ -5,7 +5,7 @@ class Booking:
     Model Class Booking
     """
 
-    def __init__(self, booking_id: int, guest_id: int, room_id: int, check_in_date: date, check_out_date: date, guest_count: int):
+    def __init__(self, booking_id: int, guest_id: int, room_id: int, check_in_date: date, check_out_date: date):
         if not isinstance(booking_id, int) or booking_id < 0:
             raise ValueError("Booking ID must be a positive integer")
         if not isinstance(guest_id, int) or guest_id < 0:
@@ -24,7 +24,6 @@ class Booking:
         self.__room_id = room_id
         self.__check_in_date = check_in_date
         self.__check_out_date = check_out_date
-        self.__guest_count = guest_count
 
     @property
     def booking_id(self):
@@ -46,10 +45,6 @@ class Booking:
     def check_out_date(self):
         return self.__check_out_date
 
-    @property
-    def guest_count(self):
-        return self.__guest_count
-
     def __str__(self):
-        return f"Booking[{self.__booking_id}] Guest {self.__guest_id}, Room {self.__room_id}, {self.__check_in_date} → {self.__check_out_date}, {self.__guest_count} guest(s)"
+        return f"Booking[{self.__booking_id}] Guest {self.__guest_id}, Room {self.__room_id}, {self.__check_in_date} → {self.__check_out_date}"
 

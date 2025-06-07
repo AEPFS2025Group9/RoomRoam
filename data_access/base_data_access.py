@@ -1,28 +1,34 @@
 import sqlite3
+import os
 
 class BaseDataAccess:
-    def __init__(self, db_path: str = "database/hotel.db"):
+    def __init__(self, db_path: str = "database/using_db.db"):
         self.db_path = db_path
-        self.conn = sqlite3.connect(self.db_path)
-        self.conn.row_factory = sqlite3.Row  # Optional: allows name-based access
-        self.cursor = self.conn.cursor()
+        # Check if database file exists
+        if not os.path.exists(self.db_path):
+            raise FileNotFoundError(f"Database file not found: {self.db_path}")
+    
+    def _get_connection(self):
+        """Create a new connection for each operation"""
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        return conn
 
     def fetchone(self, sql: str, params: tuple = ()):
-        self.cursor.execute(sql, params)
-        return self.cursor.fetchone()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
+            return cursor.fetchone()
 
     def fetchall(self, sql: str, params: tuple = ()):
-        self.cursor.execute(sql, params)
-        return self.cursor.fetchall()
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
+            return cursor.fetchall()
 
     def execute(self, sql: str, params: tuple = ()):
-        self.cursor.execute(sql, params)
-        self.conn.commit()
-        return self.cursor.lastrowid, self.cursor.rowcount
-
-    def close(self):
-        self.conn.close()
-
-    def __del__(self):
-        self.close()
-
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(sql, params)
+            conn.commit()
+            return cursor.lastrowid, cursor.rowcount

@@ -1,10 +1,11 @@
 from data_access.base_data_access import BaseDataAccess
 from model.booking import Booking
+from typing import List, Dict, Optional
 
 class BookingDataAccess(BaseDataAccess):
     def create_booking(self, booking: Booking) -> int:
         sql = """
-        INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date, guest_count)
+        INSERT INTO Booking (guest_id, room_id, check_in_date, check_out_date)
         VALUES (?, ?, ?, ?, ?)
         """
         params = (
@@ -12,22 +13,21 @@ class BookingDataAccess(BaseDataAccess):
             booking.room_id,
             booking.check_in_date,
             booking.check_out_date,
-            booking.guest_count
         )
         last_row_id, _ = self.execute(sql, params)
         return last_row_id
 
-    def read_booking_by_id(self, booking_id: int) -> Booking | None:
+    def read_all_bookings(self) -> List[Booking]:
         sql = """
-        SELECT booking_id, guest_id, room_id, check_in_date, check_out_date, guest_count
+        SELECT booking_id, guest_id, room_id, check_in_date, check_out_date
         FROM Booking WHERE booking_id = ?
         """
         row = self.fetchone(sql, (booking_id,))
         return Booking(*row) if row else None
 
-    def read_all_bookings(self) -> list[Booking]:
+    def read_all_booking_overview(self) -> List[Dict]:
         sql = """
-        SELECT booking_id, guest_id, room_id, check_in_date, check_out_date, guest_count
+        SELECT booking_id, guest_id, room_id, check_in_date, check_out_date
         FROM Booking
         """
         rows = self.fetchall(sql)
@@ -37,7 +37,7 @@ class BookingDataAccess(BaseDataAccess):
         sql = "DELETE FROM Booking WHERE booking_id = ?"
         self.execute(sql, (booking_id,))
 
-    def read_all_booking_overview(self) -> list[dict]:
+    def read_all_booking_overview(self) -> List[Dict]:
         sql = """
         SELECT 
             b.booking_id,
@@ -46,7 +46,6 @@ class BookingDataAccess(BaseDataAccess):
             r.room_number,
             b.check_in_date,
             b.check_out_date,
-            b.guest_count
         FROM Booking b
         JOIN Guest g ON b.guest_id = g.guest_id
         JOIN Room r ON b.room_id = r.room_id
@@ -62,7 +61,6 @@ class BookingDataAccess(BaseDataAccess):
                 "room_number": row[3],
                 "check_in_date": row[4],
                 "check_out_date": row[5],
-                "guest_count": row[6],
             }
             for row in rows
         ]

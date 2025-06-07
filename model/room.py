@@ -1,30 +1,32 @@
-from facility import Facility
-from room_type import RoomType  # Assuming you defined this elsewhere
+from model.facility import Facility
+from model.room_type import RoomType
 
 class Room:
     """
     Model Class Room
     """
 
-    def __init__(self, id: int, hotel_id: int, room_number: str, room_type: RoomType):
-        if not isinstance(id, int) or id < 0:
+    def __init__(self, room_id: int, hotel_id: int, room_number: str, type_id: RoomType, price_per_night: float):
+        if not isinstance(room_id, int) or room_id < 0:
             raise ValueError("Room ID must be a positive integer")
         if not isinstance(hotel_id, int) or hotel_id < 0:
             raise ValueError("Hotel ID must be a positive integer")
         if not room_number or not isinstance(room_number, str):
             raise ValueError("Room number must be a non-empty string")
-        if not isinstance(room_type, RoomType):
+        if not isinstance(type_id, RoomType):
             raise ValueError("Invalid RoomType object")
-
-        self.__id = id
+        if not isinstance(price_per_night, (int, float)) or price_per_night < 0:
+            raise ValueError("Price per night must be a positive number")
+        
+        self.__room_id = room_id
         self.__hotel_id = hotel_id
         self.__room_number = room_number
-        self.__room_type = room_type
-        self.__facilities = []
+        self.__type_id = type_id
+        self.__price_per_night = price_per_night
 
     @property
-    def id(self) -> int:
-        return self.__id
+    def room_id(self) -> int:
+        return self.__room_id
 
     @property
     def hotel_id(self) -> int:
@@ -41,28 +43,15 @@ class Room:
         self.__room_number = value
 
     @property
-    def room_type(self) -> RoomType:
-        return self.__room_type
+    def type_id(self) -> RoomType:
+        return self.__type_id
 
-    @room_type.setter
-    def room_type(self, value: RoomType):
+    @type_id.setter
+    def type_id(self, value: RoomType):
         if not isinstance(value, RoomType):
             raise ValueError("Invalid RoomType object")
-        self.__room_type = value
+        self.__type_id = value
 
     @property
-    def facilities(self) -> list:
-        return self.__facilities
-
-    def add_facility(self, facility: Facility):
-        if facility not in self.__facilities:
-            self.__facilities.append(facility)
-
-    def remove_facility(self, facility: Facility):
-        if facility in self.__facilities:
-            self.__facilities.remove(facility)
-
-    def __str__(self):
-        fac_list = ', '.join([f.name for f in self.__facilities])
-        return f"Room {self.__room_number} ({self.__room_type.name}) with: {fac_list if fac_list else 'No facilities'}"
-
+    def price_per_night(self) -> float:
+        return self.__price_per_night

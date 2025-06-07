@@ -1,4 +1,4 @@
-from address import Address
+from model.address import Address
 
 class Hotel:
     """

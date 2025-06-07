@@ -1,38 +1,52 @@
 from data_access.base_data_access import BaseDataAccess
 from model.room_type import RoomType
+from typing import Optional, List
 
 class RoomTypeDataAccess(BaseDataAccess):
-    def read_all_room_types(self) -> list[RoomType]:
-        sql = "SELECT RoomTypeId, Name, Description, MaxGuests, Price FROM RoomType"
+    def read_all_room_types(self) -> List[RoomType]:
+        sql = "SELECT type_id, description, max_guests FROM Room_Type"
         rows = self.fetchall(sql)
-        return [RoomType(id, name, description, max_guests, price)
-                for id, name, description, max_guests, price in rows]
+        room_types = []
+        for type_id, description, max_guests in rows:
+            room_type = RoomType(
+                type_id=type_id,
+                description=f"{description} room",
+                max_guests=max_guests
+            )
+            room_types.append(room_type)
+        return room_types
 
-    def get_room_type_by_id(self, room_type_id: int) -> RoomType | None:
-        sql = "SELECT RoomTypeId, Name, Description, MaxGuests, Price FROM RoomType WHERE RoomTypeId = ?"
+    def get_room_type_by_id(self, room_type_id: int) -> Optional[RoomType]:
+        sql = "SELECT type_id, description, max_guests FROM Room_Type WHERE type_id = ?"
         row = self.fetchone(sql, (room_type_id,))
         if row:
-            return RoomType(*row)
+            # Handle None or empty description
+            description = row[1] if row[1] else "Standard"
+            return RoomType(
+                type_id=row[0],
+                description=f"{description} room",
+                max_guests=row[2]
+            )
         return None
 
     def create_room_type(self, room_type: RoomType) -> int:
         sql = """
-        INSERT INTO RoomType (Name, Description, MaxGuests, Price)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO Room_Type (description, max_guests)
+        VALUES (?, ?)
         """
-        params = (room_type.name, room_type.description, room_type.max_guests, room_type.price)
+        params = (room_type.description, room_type.max_guests)
         last_row_id, _ = self.execute(sql, params)
         return last_row_id
 
     def update_room_type(self, room_type: RoomType) -> None:
         sql = """
-        UPDATE RoomType
-        SET Name = ?, Description = ?, MaxGuests = ?, Price = ?
-        WHERE RoomTypeId = ?
+        UPDATE Room_Type 
+        SET description = ?, max_guests = ?
+        WHERE type_id = ?
         """
-        params = (room_type.name, room_type.description, room_type.max_guests, room_type.price, room_type.room_type_id)
+        params = (room_type.description, room_type.max_guests, room_type.typeid)
         self.execute(sql, params)
 
     def delete_room_type(self, room_type_id: int) -> None:
-        sql = "DELETE FROM RoomType WHERE RoomTypeId = ?"
+        sql = "DELETE FROM Room_Type WHERE type_id = ?"
         self.execute(sql, (room_type_id,))

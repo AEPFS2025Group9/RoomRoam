@@ -2,7 +2,7 @@ import os
 
 import model
 import data_access
-from data_access import booking_dal
+from data_access.booking_dal import BookingDataAccess
 
 class AdminManager:
     def __init__(self):
