@@ -9,7 +9,6 @@ class BaseDataAccess:
             raise FileNotFoundError(f"Database file not found: {self.db_path}")
     
     def _get_connection(self):
-        """Create a new connection for each operation"""
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
         return conn

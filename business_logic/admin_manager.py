@@ -10,25 +10,25 @@ class AdminManager:
         self.booking_dal = BookingDataAccess()
 
     def get_booking_overview(self):
-        """Get basic booking overview"""
+        """Übersicht aller Buchungen"""
         return self.booking_dal.read_all_booking_overview()
 
     def get_booking_overview_as_df(self):
-        """Get booking overview as DataFrame"""
+        """Buchungen für die Datenvisualisierung"""
         return self.booking_dal.read_all_booking_overview_as_df()
 
     def get_bookings_per_room_type(self):
-        """Get all bookings grouped by room type"""
+        """BUchungen pro Zimmertyp"""
         return self.booking_dal.get_bookings_per_room_type()
 
     def get_bookings_per_room_type_as_df(self):
-        """Get bookings per room type as DataFrame"""
+        """Buchungen pro Zimmertyp für Datenvisualisierung"""
         return self.booking_dal.get_bookings_per_room_type_as_df()
 
     def get_room_type_summary(self):
-        """Get summary statistics for bookings per room type"""
+        """ZUsammenfassung der Daten po Zimmertyp"""
         return self.booking_dal.get_room_type_summary()
 
     def get_room_type_summary_as_df(self):
-        """Get room type summary as DataFrame"""
+        """Zimmertypen-ZUsammenfassung für Datenvis."""
         return self.booking_dal.get_room_type_summary_as_df()

@@ -4,7 +4,7 @@ from typing import List
 class RoomFacilityDataAccess(BaseDataAccess):
     def get_facilities_by_room(self, room_id: int) -> List[int]:
         """
-        Gibt eine Liste aller FacilityIds zurück, die einem bestimmten Zimmer zugeordnet sind.
+        Gibt eine Liste aller Ausstatttungen, die einem bestimmten Zimmer zugeordnet sind.
         """
         sql = "SELECT facility_id FROM Room_Facilities WHERE room_id = ?"
         rows = self.fetchall(sql, (room_id,))
@@ -19,7 +19,7 @@ class RoomFacilityDataAccess(BaseDataAccess):
 
     def remove_facility_from_room(self, room_id: int, facility_id: int) -> None:
         """
-        Entfernt die Verknüpfung einer Einrichtung von einem Zimmer.
+        Entfernt die Verknüpfung.
         """
         sql = "DELETE FROM Room_Facilities WHERE room_id = ? AND facility_id = ?"
         self.execute(sql, (room_id, facility_id))

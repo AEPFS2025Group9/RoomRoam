@@ -14,14 +14,14 @@ class BookingManager:
         self.guest_dal = GuestDataAccess()
 
     def book_room(self, guest: Guest, room_id: int, check_in: date, check_out: date, guest_count: int) -> int:
-        # 1. Gast speichern oder finden
+        # Gast speichern oder finden
         existing_guest = self.guest_dal.get_guest_by_email(guest.email)
         if existing_guest:
             guest_id = existing_guest.guest_id
         else:
             guest_id = self.guest_dal.create_guest(guest)
 
-        # 2. Buchung erstellen
+        # Buchung erstellen
         booking = Booking(
             booking_id=None,
             guest_id=guest_id,
@@ -32,7 +32,7 @@ class BookingManager:
         )
         booking_id = self.booking_dal.create_booking(booking)
 
-        # 3. Rechnung erzeugen (Preis = Tage * Zimmerpreis)
+        # Rechnung erzeugen (Preis = Tage * Zimmerpreis)
         nights = (check_out - check_in).days
         room = RoomDataAccess().get_room_by_id(room_id)
         amount = nights * room.price

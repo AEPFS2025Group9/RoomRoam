@@ -12,19 +12,19 @@ class SearchManager:
         room_facility_dal = RoomFacilityDataAccess()
         facility_dal = FacilityDataAccess()
 
-        # Schritt 1: Verfügbare Zimmer mit Mindest-Gästezahl
+        # Verfügbare Zimmer
         available_rooms = room_dal.get_available_rooms(hotel_id, guests, checkin, checkout)
 
         result = []
         nights = (checkout - checkin).days
 
         for room in available_rooms:
-            # Zimmertyp laden
+            # Zimmertypen anzeigen
             room_type = room_type_dal.get_room_type_by_id(room.type_id)
             if room_type is None:
-                continue  # Skip if room type not found
+                continue  # überspringen, falls Zimmertyp nicht vorhanden
                 
-            # Ausstattung laden
+            # Ausstattung anzeigen
             facility_ids = room_facility_dal.get_facilities_by_room(room.room_id)
             facilities = [facility_dal.get_facility_by_id(fid) for fid in facility_ids if facility_dal.get_facility_by_id(fid) is not None]
             
@@ -45,11 +45,13 @@ class SearchManager:
         return result
 
     def get_available_rooms_as_df(self) -> pd.DataFrame:
-        """Get all available rooms as a pandas DataFrame"""
+        """Verfügbare Zimmer für Datenvisualisierung"""
         room_dal = RoomDataAccess()
         return room_dal.get_available_rooms_as_df()
     
     def get_available_room_details_as_df(self, hotel_id: int, guests: int, checkin: date, checkout: date) -> pd.DataFrame:
-        """Get detailed room information as a pandas DataFrame"""
+        """Deailinfos der Zimmer für Datenvis."""
         room_details = self.get_available_room_details(hotel_id, guests, checkin, checkout)
         return pd.DataFrame(room_details)
+
+            
