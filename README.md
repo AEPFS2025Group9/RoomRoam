@@ -17,18 +17,23 @@ Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 
 ## How to get started with RoomRoam on a Deepnote Notebook
 
-1. Import standard libraries
+1. Configure Working Directory
+```
+/Hotelreservierungssystem (RoomRoam)
+```
+
+2. Import standard libraries
 ```
 import shutil
 import os
 ```
 
-2. Import pandas
+3. Import pandas
 ```
 import pandas as pd
 ```
 
-3. Import py files from our directory
+4. Import py files from our directory
 ```
 import model
 import data_access
@@ -36,19 +41,19 @@ import business_logic
 import ui.input_helper as input_helper
 ```
 
-4. Copy original database for a fresh start
+5. Copy original database for a fresh start
 ```
 source = "database/hotel_reservation_sample.db"
 db_file = "database/using_db.db"
 shutil.copyfile(source, db_file)
 ```
  
-5. Set environment variable
+6. Set environment variable
 ```
 os.environ["DB_FILE"] = db_file
 ```
 
-6. Configure display sattings for Data Frames
+7. Configure display sattings for Data Frames
 ```
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
@@ -56,7 +61,7 @@ pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 ```
 
-7. Import Managers
+8. Import Managers
 ```
 from business_logic.admin_manager import AdminManager
 from business_logic.booking_manager import BookingManager
