@@ -10,3 +10,6 @@ class AdminManager:
 
     def get_booking_overview(self):
         return self.booking_dal.read_all_booking_overview()
+
+    def get_booking_overview_as_df(self):
+        return self.booking_dal.read_all_booking_overview_as_df()
