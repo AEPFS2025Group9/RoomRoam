@@ -18,11 +18,10 @@ Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 ## How to get started with RoomRoam on a Deepnote Notebook
 
 1. Import standard libraries
-
-     **import shutil
-   
-     import os**
-
+```
+*import shutil
+import os*
+```
 
 3. Import pandas
 
