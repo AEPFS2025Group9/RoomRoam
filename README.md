@@ -43,7 +43,7 @@ db_file = "database/using_db.db"
 shutil.copyfile(source, db_file)
 ```
  
-9. Set environment variabe
+9. Set environment variable
 ```
 os.environ["DB_FILE"] = db_file
 ```
