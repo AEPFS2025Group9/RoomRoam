@@ -1,3 +1,5 @@
+import pandas as pd
+
 from data_access.base_data_access import BaseDataAccess
 from model.room import Room
 from model.room_type import RoomType
@@ -49,3 +51,19 @@ class RoomDataAccess(BaseDataAccess):
             description = row[1] if row[1] and str(row[1]).strip() else "Standard room"
             return RoomType(type_id=row[0], description=description, max_guests=row[2])
         return None
+
+    def get_available_rooms_as_df(self) -> pd.DataFrame:
+        sql = """
+        SELECT room_id, hotel_id, room_number, type_id, price_per_night
+        FROM Room
+        """
+        rows = self.fetchall(sql)
+        
+        # Convert to DataFrame manually
+        if rows:
+            df = pd.DataFrame(rows, columns=['room_id', 'hotel_id', 'room_number', 'type_id', 'price_per_night'])
+            df = df.set_index('room_id')
+            return df
+        else:
+            # Return empty DataFrame with correct columns
+            return pd.DataFrame(columns=['hotel_id', 'room_number', 'type_id', 'price_per_night']).set_index(pd.Index([], name='room_id'))

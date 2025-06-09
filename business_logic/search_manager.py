@@ -1,3 +1,4 @@
+import pandas as pd
 from datetime import date
 from data_access.room_dal import RoomDataAccess
 from data_access.room_type_dal import RoomTypeDataAccess
@@ -42,3 +43,13 @@ class SearchManager:
             result.append(room_info)
 
         return result
+
+    def get_available_rooms_as_df(self) -> pd.DataFrame:
+        """Get all available rooms as a pandas DataFrame"""
+        room_dal = RoomDataAccess()
+        return room_dal.get_available_rooms_as_df()
+    
+    def get_available_room_details_as_df(self, hotel_id: int, guests: int, checkin: date, checkout: date) -> pd.DataFrame:
+        """Get detailed room information as a pandas DataFrame"""
+        room_details = self.get_available_room_details(hotel_id, guests, checkin, checkout)
+        return pd.DataFrame(room_details)
