@@ -23,12 +23,12 @@ import shutil
 import os
 ```
 
-3. Import pandas
+2. Import pandas
 ```
 import pandas as pd
 ```
 
-5. Import py files from our directory
+3. Import py files from our directory
 ```
 import model
 import data_access
@@ -36,19 +36,19 @@ import business_logic
 import ui.input_helper as input_helper
 ```
 
-7. Copy original database for a fresh start
+4. Copy original database for a fresh start
 ```
 source = "database/hotel_reservation_sample.db"
 db_file = "database/using_db.db"
 shutil.copyfile(source, db_file)
 ```
  
-9. Set environment variable
+5. Set environment variable
 ```
 os.environ["DB_FILE"] = db_file
 ```
 
-11. Configure display sattings for Data Frames
+6. Configure display sattings for Data Frames
 ```
 pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
@@ -56,7 +56,7 @@ pd.set_option("display.width", None)
 pd.set_option("display.max_colwidth", None)
 ```
 
-13. Import Managers
+7. Import Managers
 ```
 from business_logic.admin_manager import AdminManager
 from business_logic.booking_manager import BookingManager
