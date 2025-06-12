@@ -4,9 +4,24 @@ from typing import Optional
 from typing import List
 
 class InvoiceDataAccess(BaseDataAccess):
+    def create_table(self):
+        sql = """
+        CREATE TABLE IF NOT EXISTS invoice (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            guest_id INTEGER NOT NULL,
+            booking_id INTEGER NOT NULL,
+            total_amount REAL NOT NULL,
+            is_paid INTEGER NOT NULL DEFAULT 0,
+            invoice_date TEXT NOT NULL,
+            FOREIGN KEY (guest_id) REFERENCES guests(id),
+            FOREIGN KEY (booking_id) REFERENCES bookings(id)
+        )
+        """
+        self.execute(sql)
+
     def create_invoice(self, invoice: Invoice) -> int:
         sql = """
-        INSERT INTO Invoice (booking_id, issue_date, total_amount, is_paid)
+        INSERT INTO invoice (booking_id, issue_date, total_amount, is_paid)
         VALUES (?, ?, ?, ?)
         """
         params = (
@@ -20,29 +35,29 @@ class InvoiceDataAccess(BaseDataAccess):
 
     def read_invoice_by_id(self, invoice_id: int) -> Optional[Invoice]:
         sql = """
-        SELECT invoice_id, booking_id, issue_date, total_amount, is_paid
-        FROM Invoice WHERE invoice_id = ?
+        SELECT id, booking_id, invoice_date, total_amount, is_paid
+        FROM invoice WHERE id = ?
         """
         row = self.fetchone(sql, (invoice_id,))
         return Invoice(*row) if row else None
 
     def read_all_invoices(self) -> List[Invoice]:
-        sql = "SELECT invoice_id, booking_id, issue_date, total_amount, is_paid FROM Invoice"
+        sql = "SELECT id, booking_id, invoice_date, total_amount, is_paid FROM invoice"
         rows = self.fetchall(sql)
         return [Invoice(*row) for row in rows]
 
     def mark_invoice_as_paid(self, invoice_id: int) -> None:
-        sql = "UPDATE Invoice SET is_paid = 1 WHERE invoice_id = ?"
+        sql = "UPDATE invoice SET is_paid = 1 WHERE id = ?"
         self.execute(sql, (invoice_id,))
 
     def get_invoice_by_booking_id(self, booking_id: int) -> Optional[Invoice]:
         sql = """
-        SELECT invoice_id, booking_id, issue_date, total_amount, is_paid
-        FROM Invoice WHERE booking_id = ?
+        SELECT id, booking_id, invoice_date, total_amount, is_paid
+        FROM invoice WHERE booking_id = ?
         """
         row = self.fetchone(sql, (booking_id,))
         return Invoice(*row) if row else None
 
     def delete_invoice(self, invoice_id: int) -> None:
-        sql = "DELETE FROM Invoice WHERE invoice_id = ?"
+        sql = "DELETE FROM invoice WHERE id = ?"
         self.execute(sql, (invoice_id,))
