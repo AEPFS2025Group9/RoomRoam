@@ -1,9 +1,9 @@
 import pandas as pd
-
 from data_access.base_data_access import BaseDataAccess
+from data_access.room_type_dal import RoomTypeDataAccess
 from model.room import Room
 from model.room_type import RoomType
-from typing import List
+from typing import List, Optional
 
 class RoomDataAccess(BaseDataAccess):
     def get_rooms_by_hotel(self, hotel_id: int) -> List[Room]:
@@ -12,12 +12,16 @@ class RoomDataAccess(BaseDataAccess):
         FROM Room WHERE hotel_id = ?
         """
         rows = self.fetchall(sql, (hotel_id,))
-        
-        # Create RoomType objects for each room
         result = []
+
         for row in rows:
-            room_type = self.get_room_type_by_id(row[3])  # Assuming you have a method to fetch RoomType by type_id
-            room = Room(room_id=row[0], hotel_id=row[1], room_number=row[2], type_id=row[3], price_per_night=row[4])
+            room = Room(
+                room_id=row[0],
+                hotel_id=row[1],
+                room_number=row[2],
+                type_id=row[3],  # ✅ Nur ID
+                price_per_night=row[4]
+            )
             result.append(room)
         return result
 
@@ -34,20 +38,41 @@ class RoomDataAccess(BaseDataAccess):
             )
         """
         rows = self.fetchall(sql, (hotel_id, guests, check_out_date, check_in_date))
-        
-        # Create RoomType objects for each room
         result = []
+
         for row in rows:
-            room_type = self.get_room_type_by_id(row[3])  # Assuming you have a method to fetch RoomType by type_id
-            room = Room(room_id=row[0], hotel_id=row[1], room_number=row[2], type_id=row[3], price_per_night=row[4])
+            room = Room(
+                room_id=row[0],
+                hotel_id=row[1],
+                room_number=row[2],
+                type_id=row[3],  # ✅ Nur ID
+                price_per_night=row[4]
+            )
             result.append(room)
         return result
 
-    def get_room_type_by_id(self, type_id: int) -> RoomType:
+    def get_room_by_id(self, room_id: int) -> Room:
+        sql = """
+        SELECT room_id, hotel_id, room_number, type_id, price_per_night
+        FROM Room
+        WHERE room_id = ?
+        """
+        row = self.fetchone(sql, (room_id,))
+        if not row:
+            raise ValueError(f"No room found with ID {room_id}")
+
+        return Room(
+            room_id=row[0],
+            hotel_id=row[1],
+            room_number=row[2],
+            type_id=row[3],
+            price_per_night=row[4]
+        )
+
+    def get_room_type_by_id(self, type_id: int) -> Optional[RoomType]:
         sql = "SELECT type_id, description, max_guests FROM Room_Type WHERE type_id = ?"
         row = self.fetchone(sql, (type_id,))
         if row:
-        # Handle None or empty description
             description = row[1] if row[1] and str(row[1]).strip() else "Standard room"
             return RoomType(type_id=row[0], description=description, max_guests=row[2])
         return None
@@ -59,11 +84,9 @@ class RoomDataAccess(BaseDataAccess):
         """
         rows = self.fetchall(sql)
         
-        # Convert to DataFrame manually
         if rows:
             df = pd.DataFrame(rows, columns=['room_id', 'hotel_id', 'room_number', 'type_id', 'price_per_night'])
             df = df.set_index('room_id')
             return df
         else:
-            # Return empty DataFrame with correct columns
             return pd.DataFrame(columns=['hotel_id', 'room_number', 'type_id', 'price_per_night']).set_index(pd.Index([], name='room_id'))

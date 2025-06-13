@@ -5,7 +5,7 @@ from typing import Optional
 class GuestDataAccess(BaseDataAccess):
     def get_guest_by_email(self, email: str) -> Optional[Guest]:
         sql = """
-        SELECT first_name, last_name, email, address_id
+        SELECT guest_id, first_name, last_name, email, address_id
         FROM Guest WHERE email = ?
         """
         row = self.fetchone(sql, (email,))
@@ -24,3 +24,4 @@ class GuestDataAccess(BaseDataAccess):
         )
         last_row_id, _ = self.execute(sql, params)
         return last_row_id
+

@@ -41,4 +41,3 @@ class RoomType:
 
     def __str__(self):
         return f"{self.__description} ({self.__max_guests} guests)"
-

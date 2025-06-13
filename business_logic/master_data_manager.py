@@ -10,7 +10,7 @@ class MasterDataManager:
         self.facility_dal = FacilityDataAccess()
         self.room_dal = RoomDataAccess()
 
-    # Zimmertypen
+    # === Zimmertypen ===
     def create_room_type(self, room_type: RoomType) -> int:
         return self.room_type_dal.create_room_type(room_type)
 
@@ -20,7 +20,7 @@ class MasterDataManager:
     def delete_room_type(self, room_type_id: int):
         return self.room_type_dal.delete_room_type(room_type_id)
 
-    # Austattung
+    # === Ausstattungen ===
     def create_facility(self, facility: Facility) -> int:
         return self.facility_dal.create_facility(facility)
 
@@ -30,6 +30,7 @@ class MasterDataManager:
     def delete_facility(self, facility_id: int):
         return self.facility_dal.delete_facility(facility_id)
 
-    # Zimmerpreise
+    # === Zimmerpreis ===
     def update_room_price(self, room_id: int, new_price: float):
         return self.room_dal.update_room_price(room_id, new_price)
+

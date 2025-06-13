@@ -67,12 +67,10 @@ class BookingDataAccess(BaseDataAccess):
         ]
 
     def read_all_booking_overview_as_df(self) -> pd.DataFrame:
-        """Funktion für Datenvisualisierung"""
         booking_data = self.read_all_booking_overview()
         return pd.DataFrame(booking_data)
 
     def get_bookings_per_room_type(self) -> List[Dict]:
-        """Buchungen pro Zimmertyp gruppiert"""
         sql = """
         SELECT 
             rt.description AS room_type,
@@ -111,12 +109,10 @@ class BookingDataAccess(BaseDataAccess):
         ]
 
     def get_bookings_per_room_type_as_df(self) -> pd.DataFrame:
-        """Buchungen pro Zimmertyp für Datenvis."""
-        booking_data = self.get_bookings_per_room_type()
-        return pd.DataFrame(booking_data)
+        data = self.get_bookings_per_room_type()
+        return pd.DataFrame(data)
 
     def get_room_type_summary(self) -> List[Dict]:
-        """Details zu buchungen pro Zimmertyp"""
         sql = """
         SELECT 
             rt.description AS room_type,
@@ -147,6 +143,5 @@ class BookingDataAccess(BaseDataAccess):
         ]
 
     def get_room_type_summary_as_df(self) -> pd.DataFrame:
-        """Details für Datenvisualiesirung"""
-        summary_data = self.get_room_type_summary()
-        return pd.DataFrame(summary_data)
+        summary = self.get_room_type_summary()
+        return pd.DataFrame(summary)
