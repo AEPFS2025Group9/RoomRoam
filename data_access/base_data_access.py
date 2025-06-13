@@ -2,14 +2,12 @@ import sqlite3
 import os
 
 class BaseDataAccess:
-    def __init__(self, db_path: str = "database/using_db.db"):
-        self.db_path = db_path
-        # Prüfen, ob die Datenbank existiert
+    def __init__(self, db_path: str = None):
+        self.db_path = db_path or os.environ.get("ROOMROAM_DB_PATH", "database/using_db.db")
         if not os.path.exists(self.db_path):
             raise FileNotFoundError(f"Database file not found: {self.db_path}")
     
     def _get_connection(self):
-        """Erstellt eine neue Verbindung pro Operation"""
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
         return conn
