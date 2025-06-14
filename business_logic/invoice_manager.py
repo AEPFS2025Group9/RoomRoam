@@ -39,7 +39,7 @@ class InvoiceManager:
         invoice = Invoice(
             invoice_id=0,
             booking_id=booking_id,
-            invoice_date=date.today(),
+            issue_date=date.today(),
             total_amount=total_amount,
             is_paid=False
         )
@@ -83,7 +83,7 @@ class InvoiceManager:
 
         return {
             "invoice_id": invoice.invoice_id,
-            "invoice_date": invoice.invoice_date,
+            "issue_date": invoice.issiu_date,
             "total_amount": invoice.total_amount,
             "is_paid": invoice.is_paid,
             "guest_name": f"{guest.first_name} {guest.last_name}",

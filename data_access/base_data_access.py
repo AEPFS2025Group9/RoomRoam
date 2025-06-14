@@ -3,9 +3,11 @@ import os
 
 class BaseDataAccess:
     def __init__(self, db_path: str = None):
-        self.db_path = db_path or os.environ.get("ROOMROAM_DB_PATH", "database/using_db.db")
-        if not os.path.exists(self.db_path):
-            raise FileNotFoundError(f"Database file not found: {self.db_path}")
+        if db_path:
+            self.db_path = db_path 
+        else:
+            self.db_path = "RoomRoam/database/using_db.db"
+            os.environ["ROOMROAM_DB_PATH"] = self.db_path
     
     def _get_connection(self):
         conn = sqlite3.connect(self.db_path)

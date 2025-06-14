@@ -12,7 +12,7 @@ class AddressDataAccess(BaseDataAccess):
 
     def read_address_by_id(self, address_id: int) -> Optional[Address]:
         """Adresse anhand der ID anzeigen"""
-        sql = "SELECT address_id, street, zip_code, city FROM Address WHERE address_id = ?"
+        sql = "SELECT street, zip_code, city, address_id FROM Address WHERE address_id = ?"
         row = self.fetchone(sql, (address_id,))
         if row:
             return Address(*row)
@@ -20,7 +20,7 @@ class AddressDataAccess(BaseDataAccess):
 
     def read_all_addresses(self) -> List[Address]:
         """Alle Adressen anzeigen"""
-        sql = "SELECT address_id, street, zip_code, city FROM Address"
+        sql = "SELECT street, zip_code, city, address_id FROM Address"
         rows = self.fetchall(sql)
         return [Address(*row) for row in rows]
 
@@ -37,7 +37,7 @@ class AddressDataAccess(BaseDataAccess):
 
     def get_addresses_by_city(self, city: str) -> List[Address]:
         """Adressen nach Stadt filtern"""
-        sql = "SELECT address_id, street, zip_code, city FROM Address WHERE city = ?"
+        sql = "SELECT street, zip_code, city, address_id FROM Address WHERE city = ?"
         rows = self.fetchall(sql, (city,))
         return [Address(*row) for row in rows]
 

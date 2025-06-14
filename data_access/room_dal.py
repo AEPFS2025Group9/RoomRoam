@@ -90,3 +90,12 @@ class RoomDataAccess(BaseDataAccess):
             return df
         else:
             return pd.DataFrame(columns=['hotel_id', 'room_number', 'type_id', 'price_per_night']).set_index(pd.Index([], name='room_id'))
+
+    def update_room(self, room: Room) -> None:
+        sql = """
+        UPDATE Room
+        SET room_number = ?, type_id = ?, price_per_night = ?
+        WHERE room_id = ?
+        """
+        params = (room.room_number, room.type_id, room.price_per_night, room.room_id)
+        self.execute(sql, params)

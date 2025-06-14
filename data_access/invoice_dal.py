@@ -8,13 +8,8 @@ class InvoiceDataAccess(BaseDataAccess):
         INSERT INTO Invoice (booking_id, issue_date, total_amount, is_paid)
         VALUES (?, ?, ?, ?)
         """
-        params = (
-            invoice.booking_id,
-            invoice.issue_date,
-            invoice.total_amount,
-            invoice.is_paid
-        )
-        last_row_id, _ = self.execute(sql, params)
+        params = (invoice.booking_id, invoice.issue_date, invoice.total_amount, invoice.is_paid)
+        last_row_id, = self.execute(sql, params)
         return last_row_id
 
     def read_invoice_by_id(self, invoice_id: int) -> Optional[Invoice]:
@@ -22,8 +17,10 @@ class InvoiceDataAccess(BaseDataAccess):
         SELECT invoice_id, booking_id, issue_date, total_amount, is_paid
         FROM Invoice WHERE invoice_id = ?
         """
-        row = self.fetchone(sql, (invoice_id,))
-        return Invoice(*row) if row else None
+        row = self.fetchone(sql, (id,))
+        if row:
+            issue_date = date.fromisoformat(row[2])
+            return Invoice(row[0], row[1], issue_date, row[3], row[4])
 
     def read_all_invoices(self) -> List[Invoice]:
         sql = "SELECT invoice_id, booking_id, issue_date, total_amount, is_paid FROM Invoice"

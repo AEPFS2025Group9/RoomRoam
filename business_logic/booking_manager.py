@@ -43,7 +43,7 @@ class BookingManager:
         invoice = Invoice(
             invoice_id=None,
             booking_id=booking_id,
-            amount=amount,
+            total_amount=amount,
             issue_date=date.today(),
             is_paid=False
         )

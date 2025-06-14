@@ -20,7 +20,7 @@ class HotelDataAccess(BaseDataAccess):
         rows = self.fetchall(sql)
         hotels = []
         for hotel_id, name, stars, address_id, street, zip_code, city in rows:
-            address = Address(address_id, street, zip_code, city)
+            address = Address(street, zip_code, city, address_id)
             hotels.append(Hotel(hotel_id, name, stars, address))
         return hotels
 
@@ -35,7 +35,7 @@ class HotelDataAccess(BaseDataAccess):
         rows = self.fetchall(sql, (city,))
         hotels = []
         for hotel_id, name, stars, address_id, street, zip_code, city in rows:
-            address = Address(address_id, street, zip_code, city)
+            address = Address(street, zip_code, city, address_id)
             hotels.append(Hotel(hotel_id, name, stars, address))
         return hotels
 

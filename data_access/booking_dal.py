@@ -2,6 +2,7 @@ import pandas as pd
 from data_access.base_data_access import BaseDataAccess
 from model.booking import Booking
 from typing import List, Dict, Optional
+from datetime import datetime
 
 class BookingDataAccess(BaseDataAccess):
     def create_booking(self, booking: Booking) -> int:
@@ -23,8 +24,13 @@ class BookingDataAccess(BaseDataAccess):
         SELECT booking_id, guest_id, room_id, check_in_date, check_out_date
         FROM Booking WHERE booking_id = ?
         """
-        row = self.fetchone(sql, (booking_id,))
-        return Booking(*row) if row else None
+        row = self.fetchone(sql, (id,))
+        if row:
+            cid_str, cod_str = row[3], row[4]   # Datumstexte
+            check_in = date.fromisoformat(cid_str)
+            check_out = date.fromisoformat(cod_str)
+            return Booking(row[0], row[1], row[2], check_in, check_out, row_count_default_or_1)
+
 
     def read_all_bookings(self) -> List[Booking]:
         sql = """
