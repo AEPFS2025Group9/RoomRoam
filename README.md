@@ -2,13 +2,13 @@
 This repository belongs to Group 9 from Class B for "Anwendungsentwicklung mit Python" in Business Artifical Intelligence. The objectives of this project is the use of newly learned skills in Python on a tool for hotel reservations.
 
 ## Contributors
-Benjamin Börlin - Project Board, Classes, Debugging, Data Visualization
+Benjamin Börlin - Classes, Debugging, User Stories, Data Visualization
 
-Alex Suter - Classes, Debugging, User Stories
+Alex Suter - Classes, Debugging, Main User Stories
 
-Jiapei Sun - Classes, Debugging, User Stories
+Jiapei Sun - Classes, Debugging, Main User Stories
 
-Damian Martin - Classes, Debugging, Data Access
+Damian Martin - Classes, Debugging, DB User Stories, Data Access
 
 
 ## Project
@@ -70,15 +70,16 @@ from business_logic.search_manager import SearchManager
 ```
 
 
+## Reflection
+Towards the finalizing stage of our project we have noticed, that our code was not totally aligned. Since we have assigned tasks individually some concepts have been used differently and we had to synchronize our classes and functions. For some of the debugging we have used LLMs to help us generate debugging code in our Notebook. This gave us the possibility to find mistakes or inconsistencies throughout our code.
+
 ## Deliverables
-* Source Code und Artefakte
-  * Link zum Deepnote-Projekt mit allen ausführbaren Notebooks, Dateien und der 
-endgültigen Datenbank,  
-  * Link zum GitHub-Repository, 
-  * Link zu einer Projekt Board 
-* Dokumentation/Bericht (Link zu GitHub Markdown-Datei(en)) 
-* Link zum Präsentationsvideo (das auf Microsoft Stream, SWITCHtube oder YouTube 
-gehostet wird; eingeschränkter/ungelisteter Zugang möglich und empfohlen)
+* Source Code and artifacts
+  * Link to the Deepnote-Projekt
+  * Link to the GitHub-Repository, 
+  * Link to the Project Board 
+* Link zu GitHub README.md 
+* Link to our presentation video
 
 
 ## Help
