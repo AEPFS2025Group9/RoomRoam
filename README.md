@@ -78,8 +78,7 @@ Towards the finalizing stage of our project we have noticed, that our code was n
   * Link to the Deepnote-Projekt
   * Link to the GitHub-Repository, 
   * Link to the Project Board 
-* Link zu GitHub README.md 
-* Link to our presentation video
+* Link to presentation video
 
 
 ## Help
