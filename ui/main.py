@@ -6,10 +6,10 @@ from business_logic.review_manager import ReviewManager
 from business_logic.master_data_manager import MasterDataManager
 from model.guest import Guest
 from datetime import datetime, date
-from data_access.booking_dal import BookingDataAccess  # 🔁 Needed for dynamic invoice season
-from data_access.room_dal import RoomDataAccess  # 🆑 Added for hotel_id resolution
-from data_access.review_dal import ReviewDAL  # 🔑 Ensure reviews table is created
-import matplotlib.pyplot as plt  # ★ Required for chart
+from data_access.booking_dal import BookingDataAccess
+from data_access.room_dal import RoomDataAccess
+from data_access.review_dal import ReviewDAL
+import matplotlib.pyplot as plt
 
 # Instantiate managers
 admin = AdminManager()

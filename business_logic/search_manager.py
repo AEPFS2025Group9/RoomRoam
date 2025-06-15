@@ -17,7 +17,6 @@ class SearchManager:
         self.hotel_dal = HotelDataAccess()
 
     def get_available_room_details(self, hotel_id: int, guests: int, checkin: date, checkout: date) -> List[dict]:
-        """Verfügbare Zimmer inkl. Ausstattung, Preis etc."""
         available_rooms = self.room_dal.get_available_rooms(hotel_id, guests, checkin, checkout)
         nights = (checkout - checkin).days
         result = []
@@ -47,16 +46,13 @@ class SearchManager:
         return result
 
     def get_available_rooms_as_df(self) -> pd.DataFrame:
-        """Verfügbare Zimmer als DataFrame"""
         return self.room_dal.get_available_rooms_as_df()
 
     def get_available_room_details_as_df(self, hotel_id: int, guests: int, checkin: date, checkout: date) -> pd.DataFrame:
-        """Zimmerdetails als DataFrame"""
         room_details = self.get_available_room_details(hotel_id, guests, checkin, checkout)
         return pd.DataFrame(room_details)
 
     def search_hotels(self, city: str, min_stars: int, guests: int, checkin: date, checkout: date):
-        """Hotels nach Stadt, Sternen und Verfügbarkeit filtern"""
         hotels = self.hotel_dal.read_all_hotels()
         result = []
 

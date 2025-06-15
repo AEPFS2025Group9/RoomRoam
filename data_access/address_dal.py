@@ -13,14 +13,12 @@ class AddressDataAccess(BaseDataAccess):
         sql = "SELECT address_id, street, zip_code, city FROM Address WHERE address_id = ?"
         row = self.fetchone(sql, (address_id,))
         if row:
-            print("DEBUG: Row from Address table:", row)
             address = Address.from_db(
                 address_id=row["address_id"],
                 street=row["street"],
                 zip_code=row["zip_code"],
                 city=row["city"]
             )
-            print("DEBUG: Successfully created Address object")
             return address
         return None
 

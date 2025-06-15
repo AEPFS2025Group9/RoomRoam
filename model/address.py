@@ -4,12 +4,10 @@ class Address:
     """
 
     def __init__(self, street: str, zip_code: str, city: str, address_id: int = None):
-        print("DEBUG ▶ Entering Address.__init__ with (types):", type(street), type(zip_code), type(city),
-              type(address_id))
-        print("DEBUG ▶ Entering Address.__init__ with (values):", street, zip_code, city, address_id)
+
 
         if isinstance(street, int):
-            raise RuntimeError("🚨 INVALID ORDER: Constructor called with hotel_id as street (should use from_db!)")
+            raise RuntimeError("INVALID ORDER: Constructor called with hotel_id as street (should use from_db!)")
 
         if not street or not isinstance(street, str):
             raise ValueError("Street must be a non-empty string")

@@ -24,11 +24,11 @@ class BookingDataAccess(BaseDataAccess):
         SELECT booking_id, guest_id, room_id, check_in_date, check_out_date
         FROM Booking WHERE booking_id = ?
         """
-        row = self.fetchone(sql, (booking_id,))  # ✅ Corrected variable name
+        row = self.fetchone(sql, (booking_id,))
         if row:
             check_in = date.fromisoformat(row[3])
             check_out = date.fromisoformat(row[4])
-            return Booking(row[0], row[1], row[2], check_in, check_out, guest_count=1)  # ✅ guest_count default
+            return Booking(row[0], row[1], row[2], check_in, check_out, guest_count=1)
 
     def read_all_bookings(self) -> List[Booking]:
         sql = """

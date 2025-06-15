@@ -45,7 +45,6 @@ class Invoice:
         return self.__is_paid
 
     def mark_as_paid(self):
-        """Mark this invoice as paid"""
         self.__is_paid = True
 
     def __str__(self):
