@@ -14,7 +14,7 @@ Damian Martin - Classes, Debugging, DB User Stories, Data Access, User Interface
 Our hotel reservation system is made up of several modules that handle everything from managing hotels, rooms and their facilities, to processing bookings, payments, and user data. To keep things organised, the project is divided into different folders each focused on a specific part of the system. These include the user interface, business logic, data access, model classes, and the database. This structure helped us build the system in a clear and modular way.
 
 ## 2. System Architecture
-*RoomRoam is a hotel reservation system we developed in Python. We built it in a way that keeps things organised, clear, and easy to expand later if needed. To do that, we split the system into different modules, each taking care of a specific part of the overall functionality like handling hotel data, managing bookings, or storing guest information. All the data is stored in a local SQL database, and we kept a clean structure in the code to make development and teamwork easier.
+RoomRoam is a hotel reservation system we developed in Python. We built it in a way that keeps things organised, clear, and easy to expand later if needed. To do that, we split the system into different modules, each taking care of a specific part of the overall functionality like handling hotel data, managing bookings, or storing guest information. All the data is stored in a local SQL database, and we kept a clean structure in the code to make development and teamwork easier.
 
 ### 2.1 What the System Is Made Of
 #### Hotels and Rooms
