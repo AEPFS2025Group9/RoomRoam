@@ -46,7 +46,7 @@ To structure the data layer of our system, we used a class diagram from the very
 While the class diagram provided a solid starting point, we made some adjustments during development to match technical requirements and simplify certain workflows. These changes included modifying relationships, refining method logic, and adapting class responsibilities so the system could run smoothly and meet all functional requirements.
 Overall, using this visual model helped us plan the system more effectively and keep our codebase structured and consistent.
 
-We used the given class structure in the folder model as it was mostly complete for the user storys.
+#### We used the given class structure in the folder model as it was mostly complete for the user storys.
  
 Addtionally, we created the class *`review`* which is used by the guest to search for reviews of a hotel and to write a review as well.
 The class contains the following attributes:
