@@ -29,3 +29,13 @@ class FacilityDataAccess(BaseDataAccess):
     def delete_facility(self, facility_id: int) -> None:
         sql = "DELETE FROM Facilities WHERE facility_id = ?"
         self.execute(sql, (facility_id,))
+
+    def get_facilities_by_room(self, room_id: int) -> List[Facility]:
+        sql = """
+            SELECT f.facility_id, f.facility_name 
+            FROM Facilities f
+            JOIN Room_Facilities rf ON f.facility_id = rf.facility_id
+            WHERE rf.room_id = ?
+        """
+        rows = self.fetchall(sql, (room_id,))
+        return [Facility(id=row[0], name=row[1]) for row in rows]

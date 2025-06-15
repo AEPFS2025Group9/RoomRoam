@@ -1,5 +1,7 @@
 from data_access.base_data_access import BaseDataAccess
 from model.room_type import RoomType
+from model.room import Room
+
 from typing import Optional, List
 
 class RoomTypeDataAccess(BaseDataAccess):
@@ -40,11 +42,11 @@ class RoomTypeDataAccess(BaseDataAccess):
 
     def update_room_type(self, room_type: RoomType) -> None:
         sql = """
-        UPDATE Room_Type 
+        UPDATE Room_Type
         SET description = ?, max_guests = ?
         WHERE type_id = ?
         """
-        params = (room_type.description, room_type.max_guests, room_type.typeid)
+        params = (room_type.description, room_type.max_guests, room_type.type_id)
         self.execute(sql, params)
 
     def delete_room_type(self, room_type_id: int) -> None:

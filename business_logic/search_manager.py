@@ -72,6 +72,3 @@ class SearchManager:
             result.append(hotel)
 
         return result
-
-
-            
