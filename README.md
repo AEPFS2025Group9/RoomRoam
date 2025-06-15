@@ -18,13 +18,13 @@ RoomRoam is a hotel reservation system we developed in Python. We built it in a 
 
 ### 2.1 What the System Is Made Of
 #### Hotels and Rooms
-At the heart of the system is the part that manages hotels and their rooms. Each hotel has things like a name, location, and star rating, while rooms come with details such as type, price, and what facilities are included. We defined all this using Python model classes and linked them up with the database through a custom data access layer.
+* At the heart of the system is the part that manages hotels and their rooms. Each hotel has things like a name, location, and star rating, while rooms come with details such as type, price, and what facilities are included. We defined all this using Python model classes and linked them up with the database through a custom data access layer.
 #### Bookings
-When guests book a room, their reservation goes through our booking module. This part checks whether rooms are available for the selected dates and saves all necessary information about the reservation. It also connects to the part of the system that creates an invoice for the booking so everything is logged and ready for confirmation.
+* When guests book a room, their reservation goes through our booking module. This part checks whether rooms are available for the selected dates and saves all necessary information about the reservation. It also connects to the part of the system that creates an invoice for the booking so everything is logged and ready for confirmation.
 #### Search
-Users can search for hotels based on their needs – like location, number of guests, or date range. The system helps filter the right results using these criteria. There’s also a review function where guests can leave feedback after their stay, which is saved and can be viewed later.
+* Users can search for hotels based on their needs – like location, number of guests, or date range. The system helps filter the right results using these criteria. There’s also a review function where guests can leave feedback after their stay, which is saved and can be viewed later.
 #### Admin
-Admins have access to tools for editing background data, like room types or available facilities. These changes go directly into the database without the need to adjust any code, so managing the system stays flexible.
+* Admins have access to tools for editing background data, like room types or available facilities. These changes go directly into the database without the need to adjust any code, so managing the system stays flexible.
 
 ### 2.2 Tools and Technologies We Used
 #### Language and Database
@@ -70,6 +70,20 @@ We created a dedicated folder for our business logic containing the different ma
 ## Project
 Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 
+
+## Reflection
+Towards the finalizing stage of our project we have noticed, that our code was not totally aligned. Since we have assigned tasks individually some concepts have been used differently and we had to synchronize our classes and functions. For some of the debugging we have used LLMs to help us generate debugging code in our Notebook. This gave us the possibility to find mistakes or inconsistencies throughout our code.
+
+## Deliverables
+* Source Code and artifacts
+  * Link to the Deepnote-Projekt
+  * Link to the GitHub-Repository, 
+  * Link to the Project Board 
+* Link to presentation video
+
+
+## Help
+*Link to instructions for formatting this README file: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax*
 
 ## How to get started with RoomRoam on a Deepnote Notebook
 
@@ -124,18 +138,3 @@ from business_logic.booking_manager import BookingManager
 from business_logic.master_data_manager import MasterDataManager
 from business_logic.search_manager import SearchManager
 ```
-
-
-## Reflection
-Towards the finalizing stage of our project we have noticed, that our code was not totally aligned. Since we have assigned tasks individually some concepts have been used differently and we had to synchronize our classes and functions. For some of the debugging we have used LLMs to help us generate debugging code in our Notebook. This gave us the possibility to find mistakes or inconsistencies throughout our code.
-
-## Deliverables
-* Source Code and artifacts
-  * Link to the Deepnote-Projekt
-  * Link to the GitHub-Repository, 
-  * Link to the Project Board 
-* Link to presentation video
-
-
-## Help
-*Link to instructions for formatting this README file: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax*
