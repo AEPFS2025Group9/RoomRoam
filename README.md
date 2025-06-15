@@ -67,6 +67,45 @@ We created a dedicated folder for our business logic containing the different ma
 * `review_manager` : Provides use hotel reviews such as creating a customer review
 * `search_manager` : Provides methods to do searching activities such as sesarching for hotels in a city
 
+### 4. Database Design
+The hotel reservation system is backed by a relational database, structured according to a normalized schema that was provided by the instructors. This schema includes key entities such as Hotels, Guests, Rooms, Bookings, Invoices, Facilities, and Reviews. While minor practical extensions (like seasonal pricing and review tracking) were introduced, we stayed true to the original model to maintain clarity and consistency.
+
+#### 4.1 Database Initialization
+The database is initialized at runtime through class-based data access layers. Each table (e.g., hotels, rooms, bookings, invoices, reviews) is created if it doesn't already exist, ensuring idempotent startup behavior. Review table creation, for instance, is explicitly triggered via:
+
+ReviewDAL().create_table()
+
+This ensures all necessary structures are in place before any guest or admin operations.
+
+#### 4.2 User Stories and Database Operations
+
+Each user story from the specification was implemented using clean database queries encapsulated in dedicated manager and DAL (Data Access Layer) classes.
+
+Example User Stories and Corresponding Database Features:
+
+* As a guest, I want to search for hotels in a specific city.
+  → SQL joins on the hotels and addresses tables, exposed through SearchManager.
+
+* As a guest, I want to leave a review after my stay.
+  → A review entry is inserted into the reviews table using ReviewDAL.
+
+* As an admin, I want to see occupancy rates by room type in my hotel.
+  → A grouped SQL aggregation fetches booking counts per room type, optionally filtered by hotel. The result is visualized using matplotlib via:
+
+AdminManager.get_room_type_summary_as_df(hotel_id)
+
+* Optional Extensions:
+  Dynamic pricing was implemented based on check-in month, affecting invoice generation logic.
+
+#### 4.3 Extensibility and Data Visualization
+
+To support analytical insights, we introduced functions that export booking data as pandas DataFrames. This enabled a visual dashboard (bar chart) showing room popularity per hotel or across all hotels, supporting admins in optimizing their room allocation strategy.
+
+
+
+
+
+
 ## Project
 Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 
