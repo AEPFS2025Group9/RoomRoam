@@ -4,26 +4,26 @@ from typing import List, Optional
 
 class FacilityDataAccess(BaseDataAccess):
     def read_all_facilities(self) -> List[Facility]:
-        sql = "SELECT facility_id, facility_name FROM Facilities"
+        sql = "SELECT facility_id, facility_name, description FROM Facilities"
         rows = self.fetchall(sql)
-        return [Facility(id=row[0], name=row[1]) for row in rows]
+        return [Facility(facility_id=row[0], facility_name=row[1], description=row[2]) for row in rows]
 
     def get_facility_by_id(self, facility_id: int) -> Optional[Facility]:
-        sql = "SELECT facility_id, facility_name FROM Facilities WHERE facility_id = ?"
+        sql = "SELECT facility_id, facility_name, description FROM Facilities WHERE facility_id = ?"
         row = self.fetchone(sql, (facility_id,))
         if row:
-            return Facility(id=row[0], name=row[1])
+            return Facility(facility_id=row[0], facility_name=row[1], description=row[2])
         return None
 
     def create_facility(self, facility: Facility) -> int:
-        sql = "INSERT INTO Facilities (facility_name) VALUES (?)"
-        params = (facility.name,)
+        sql = "INSERT INTO Facilities (facility_name, description) VALUES (?, ?)"
+        params = (facility.name, facility.description)
         last_row_id, _ = self.execute(sql, params)
         return last_row_id
 
     def update_facility(self, facility: Facility) -> None:
-        sql = "UPDATE Facilities SET facility_name = ? WHERE facility_id = ?"
-        params = (facility.name, facility.id)
+        sql = "UPDATE Facilities SET facility_name = ?, description = ? WHERE facility_id = ?"
+        params = (facility.name, facility.description, facility.id)
         self.execute(sql, params)
 
     def delete_facility(self, facility_id: int) -> None:
@@ -32,10 +32,15 @@ class FacilityDataAccess(BaseDataAccess):
 
     def get_facilities_by_room(self, room_id: int) -> List[Facility]:
         sql = """
-            SELECT f.facility_id, f.facility_name 
+            SELECT f.facility_id, f.facility_name, f.description
             FROM Facilities f
             JOIN Room_Facilities rf ON f.facility_id = rf.facility_id
             WHERE rf.room_id = ?
         """
         rows = self.fetchall(sql, (room_id,))
-        return [Facility(id=row[0], name=row[1]) for row in rows]
+        return [Facility(facility_id=row[0], facility_name=row[1], description=row[2]) for row in rows]
+
+    def get_all_facilities(self) -> List[Facility]:
+        sql = "SELECT facility_id, facility_name, description FROM Facilities"
+        rows = self.fetchall(sql)
+        return [Facility(facility_id=row[0], facility_name=row[1], description=row[2]) for row in rows]

@@ -52,3 +52,8 @@ class RoomTypeDataAccess(BaseDataAccess):
     def delete_room_type(self, room_type_id: int) -> None:
         sql = "DELETE FROM Room_Type WHERE type_id = ?"
         self.execute(sql, (room_type_id,))
+
+    def get_all_room_types(self) -> List[RoomType]:
+        sql = "SELECT type_id, description, max_guests FROM Room_Type"
+        rows = self.fetchall(sql)
+        return [RoomType(type_id=row[0], description=row[1], max_guests=row[2]) for row in rows]

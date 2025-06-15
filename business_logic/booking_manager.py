@@ -36,7 +36,7 @@ class BookingManager:
         # 3. Dynamische Preisberechnung
         nights = (check_out - check_in).days
         room = self.room_dal.get_room_by_id(room_id)
-        dynamic_price = room.get_dynamic_price(check_in.strftime("%Y-%m-%d"))
+        dynamic_price = room.get_dynamic_price(check_in)
         amount = round(nights * dynamic_price, 2)
 
         # 4. Rechnung erstellen

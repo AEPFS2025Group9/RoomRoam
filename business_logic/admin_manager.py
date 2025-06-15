@@ -33,9 +33,12 @@ class AdminManager:
         """Zusammenfassung pro Zimmertyp"""
         return self.booking_dal.get_room_type_summary()
 
-    def get_room_type_summary_as_df(self):
-        """Zusammenfassung pro Zimmertyp für Visualisierung"""
-        return self.booking_dal.get_room_type_summary_as_df()
+    def get_room_type_summary_as_df(self, hotel_id: Optional[int] = None):
+        df = self.booking_dal.get_room_type_summary_as_df()
+        print("DEBUG: Columns in room type summary DF:", df.columns)  # <== Add this
+        if hotel_id is not None:
+            df = df[df["hotel_id"] == hotel_id]
+        return df
 
     # --- Hotel-Logik ---
 

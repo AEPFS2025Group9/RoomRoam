@@ -2,7 +2,7 @@ import pandas as pd
 from data_access.base_data_access import BaseDataAccess
 from model.booking import Booking
 from typing import List, Dict, Optional
-from datetime import datetime
+from datetime import datetime, date
 
 class BookingDataAccess(BaseDataAccess):
     def create_booking(self, booking: Booking) -> int:
@@ -13,8 +13,8 @@ class BookingDataAccess(BaseDataAccess):
         params = (
             booking.guest_id,
             booking.room_id,
-            booking.check_in_date,
-            booking.check_out_date,
+            booking.check_in_date.isoformat(),
+            booking.check_out_date.isoformat(),
         )
         last_row_id, _ = self.execute(sql, params)
         return last_row_id
@@ -24,13 +24,11 @@ class BookingDataAccess(BaseDataAccess):
         SELECT booking_id, guest_id, room_id, check_in_date, check_out_date
         FROM Booking WHERE booking_id = ?
         """
-        row = self.fetchone(sql, (id,))
+        row = self.fetchone(sql, (booking_id,))  # ✅ Corrected variable name
         if row:
-            cid_str, cod_str = row[3], row[4]   # Datumstexte
-            check_in = date.fromisoformat(cid_str)
-            check_out = date.fromisoformat(cod_str)
-            return Booking(row[0], row[1], row[2], check_in, check_out, row_count_default_or_1)
-
+            check_in = date.fromisoformat(row[3])
+            check_out = date.fromisoformat(row[4])
+            return Booking(row[0], row[1], row[2], check_in, check_out, guest_count=1)  # ✅ guest_count default
 
     def read_all_bookings(self) -> List[Booking]:
         sql = """
@@ -38,7 +36,10 @@ class BookingDataAccess(BaseDataAccess):
         FROM Booking
         """
         rows = self.fetchall(sql)
-        return [Booking(*row) for row in rows]
+        return [
+            Booking(row[0], row[1], row[2], date.fromisoformat(row[3]), date.fromisoformat(row[4]), guest_count=1)
+            for row in rows
+        ]
 
     def delete_booking(self, booking_id: int) -> None:
         sql = "DELETE FROM Booking WHERE booking_id = ?"
@@ -52,7 +53,8 @@ class BookingDataAccess(BaseDataAccess):
             h.name AS hotel_name,
             r.room_number,
             b.check_in_date,
-            b.check_out_date
+            b.check_out_date,
+            b.guest_count
         FROM Booking b
         JOIN Guest g ON b.guest_id = g.guest_id
         JOIN Room r ON b.room_id = r.room_id
@@ -68,6 +70,7 @@ class BookingDataAccess(BaseDataAccess):
                 "room_number": row[3],
                 "check_in_date": row[4],
                 "check_out_date": row[5],
+                "guest_count": row[6]
             }
             for row in rows
         ]
@@ -121,6 +124,7 @@ class BookingDataAccess(BaseDataAccess):
     def get_room_type_summary(self) -> List[Dict]:
         sql = """
         SELECT 
+            r.hotel_id,
             rt.description AS room_type,
             rt.max_guests,
             COUNT(b.booking_id) AS total_bookings,
@@ -131,19 +135,20 @@ class BookingDataAccess(BaseDataAccess):
         FROM Room_Type rt
         LEFT JOIN Room r ON rt.type_id = r.type_id
         LEFT JOIN Booking b ON r.room_id = b.room_id
-        GROUP BY rt.type_id, rt.description, rt.max_guests
+        GROUP BY r.hotel_id, rt.type_id, rt.description, rt.max_guests
         ORDER BY total_bookings DESC
         """
         rows = self.fetchall(sql)
         return [
             {
-                "room_type": row[0],
-                "max_guests": row[1],
-                "total_bookings": row[2],
-                "hotels_with_bookings": row[3],
-                "avg_nights_per_booking": round(row[4], 2) if row[4] else 0,
-                "first_booking_date": row[5],
-                "last_checkout_date": row[6],
+                "hotel_id": row[0],
+                "room_type": row[1],
+                "max_guests": row[2],
+                "total_bookings": row[3],
+                "hotels_with_bookings": row[4],
+                "avg_nights_per_booking": round(row[5], 2) if row[5] else 0,
+                "first_booking_date": row[6],
+                "last_checkout_date": row[7],
             }
             for row in rows
         ]

@@ -30,14 +30,15 @@ class SearchManager:
             facility_ids = self.room_facility_dal.get_facilities_by_room(room.room_id)
             facilities = [self.facility_dal.get_facility_by_id(fid) for fid in facility_ids if self.facility_dal.get_facility_by_id(fid)]
 
-            total_price = room.price_per_night * nights
+            dynamic_price_per_night = room.get_dynamic_price(checkin)
+            total_price = dynamic_price_per_night * nights
 
             room_info = {
                 "room_id": room.room_id,
                 "room_type": room_type.description,
                 "max_guests": room_type.max_guests,
                 "description": room_type.description,
-                "price_per_night": room.price_per_night,
+                "price_per_night": dynamic_price_per_night,
                 "total_price": total_price,
                 "facilities": [f.name for f in facilities],
             }

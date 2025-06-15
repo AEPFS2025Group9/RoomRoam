@@ -34,7 +34,7 @@ class ReviewDAL(BaseDataAccess):
         """
         return self.fetchall(sql, (hotel_id,))
 
-def get_last_inserted_id(self):
-    sql = "SELECT last_insert_rowid()"
-    result = self.fetchone(sql)
-    return result[0] if result else -1
+    def get_last_inserted_id(self):
+        sql = "SELECT last_insert_rowid()"
+        result = self.fetchone(sql)
+        return result[0] if result else -1

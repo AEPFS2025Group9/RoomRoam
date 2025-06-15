@@ -1,6 +1,6 @@
 from model.facility import Facility
 from model.room_type import RoomType
-from datetime import datetime
+from datetime import date
 
 class Room:
     """
@@ -25,24 +25,23 @@ class Room:
         self.__type_id = type_id
         self.__price_per_night = price_per_night
 
-    def get_dynamic_price(self, check_in_date: str) -> float:
+    def get_dynamic_price(self, check_in_date: date) -> float:
         """
         Calculates dynamic price based on season:
-        - High season (July, August, December): +20%
+        - High season (June, July, August, December): +20%
         - Low season (January, February, November): -15%
         - Others: base price
         """
-        try:
-            month = datetime.strptime(check_in_date, "%Y-%m-%d").month
-        except ValueError:
-            raise ValueError("Invalid date format. Expected YYYY-MM-DD.")
+        if not isinstance(check_in_date, date):
+            raise ValueError("Expected a date object for check_in_date")
 
-        if month in [7, 8, 12]:  # Hochsaison
-            return round(self.price_per_night * 1.2, 2)
+        month = check_in_date.month
+        if month in [6, 7, 8, 12]:  # Hochsaison
+            return round(self.__price_per_night * 1.20, 2)
         elif month in [1, 2, 11]:  # Nebensaison
-            return round(self.price_per_night * 0.85, 2)
+            return round(self.__price_per_night * 0.85, 2)
         else:
-            return self.price_per_night
+            return self.__price_per_night
 
     @property
     def room_id(self) -> int:
