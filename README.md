@@ -28,7 +28,7 @@ RoomRoam is a hotel reservation system we developed in Python. We built it in a 
 
 ### 2.2 Tools and Technologies We Used
 #### Language and Database
-We used Python to build the whole system because it’s straightforward and easy to work with in teams. For storing the data, we chose a simple local SQL database. Instead of using a full ORM like SQLAlchemy, we wrote our own data access classes to keep things more transparent.
+We used Python to build the whole system because it’s straightforward and easy to work with in teams. For storing the data, we chose a simple local SQL database.
 #### PyCharm and GitHub
 Most of the development was done in PyCharm. It made writing, testing, and navigating the code a lot easier. We also connected everything with GitHub, which we used regularly to keep track of code changes, collaborate through branches and pull requests, and review each other's work.
 #### Deepnote for Testing and Validation
