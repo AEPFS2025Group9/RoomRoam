@@ -242,6 +242,6 @@ admin = AdminManager()
 admin.get_all_hotels()
 ```
 search = SearchManager()
-search.search_hotels("Zürich", 3, 4, date(2025, 6, 20), date(2025, 6 22))
+search.search_hotels("Zürich", 3, 4, date(2025, 6, 20), date(2025, 6, 22))
 ```
 admin.get_room_type_summary_as_df()
