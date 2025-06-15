@@ -157,17 +157,17 @@ Admin Menu:
 
 * Charts are rendered using matplotlib and pandas DataFrames
 
+## 6. Reflection
 
+Towards the final stage of our project, we noticed that our codebase was not fully aligned. Since tasks had been assigned individually, different interpretations of certain concepts had emerged. This resulted in discrepancies across classes and functions, which required a concerted effort to synchronize and standardize the codebase.
 
+Another challenge we encountered was the frequent change of contributors working on the code. As different team members modified the project at various times, this sometimes led to misunderstandings or inconsistent implementations. This dynamic made it difficult to maintain a unified structure and caused occasional setbacks in the development process.
 
-## Project
-Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
+To tackle these issues, we also used large language models (LLMs) to assist with debugging. The LLMs helped us generate debugging code within our Deepnote notebook, which proved useful in identifying logical errors and inconsistencies that we had overlooked during our own code reviews.
 
+Despite the initial struggles, we managed to harmonize our implementation. Through clear communication, continuous testing, and the strategic use of debugging tools, we were able to resolve all major issues. Now, the system functions as intended and reflects a well integrated result of our combined efforts.
 
-## Reflection
-Towards the finalizing stage of our project we have noticed, that our code was not totally aligned. Since we have assigned tasks individually some concepts have been used differently and we had to synchronize our classes and functions. For some of the debugging we have used LLMs to help us generate debugging code in our Notebook. This gave us the possibility to find mistakes or inconsistencies throughout our code.
-
-## Deliverables
+## 7. Deliverables
 * Source Code and artifacts
   * Link to the Deepnote-Projekt, https://deepnote.com/workspace/Hotelreservierung-bb01673e-6ecf-43ff-a846-c2f58343e63b/project/Code-harmonization-4110b8bf-941b-4151-bec6-7a024162a31b/notebook/Alex-Neu-b22a3f42ed5b426499ee1c60d1a8674d
   * Link to the GitHub-Repository, 
