@@ -170,7 +170,7 @@ Despite the initial struggles, we managed to harmonize our implementation. Throu
 ## 7. Deliverables
 * Source Code and artifacts
   * Link to the Deepnote-Projekt, https://deepnote.com/workspace/Hotelreservierung-bb01673e-6ecf-43ff-a846-c2f58343e63b/project/Code-harmonization-4110b8bf-941b-4151-bec6-7a024162a31b/notebook/Alex-Neu-b22a3f42ed5b426499ee1c60d1a8674d
-  * Link to the GitHub-Repository, 
+  * Link to the GitHub-Repository, https://github.com/AEPFS2025Group9/RoomRoam
   * Link to the Project Board, Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
 * Link to presentation video, https://fhnw365-my.sharepoint.com/:v:/g/personal/benjamin_boerlin_students_fhnw_ch/ERXoAqbLbtpGsc7m_F9onroBml1e6k0jo7-y9LTyHjqdfQ?e=CVNTQp
 
