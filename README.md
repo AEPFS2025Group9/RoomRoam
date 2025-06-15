@@ -109,7 +109,7 @@ Another challenge we encountered was the frequent change of contributors working
 
 To tackle these issues, we also used large language models (LLMs) to assist with debugging. The LLMs helped us generate debugging code within our Deepnote notebook, which proved useful in identifying logical errors and inconsistencies that we had overlooked during our own code reviews.
 
-Despite the initial struggles, we managed to harmonize our implementation. Through clear communication, continuous testing, and the strategic use of debugging tools, we were able to resolve all major issues. Now, the system functions as intended and reflects a well-integrated result of our combined efforts.
+Despite the initial struggles, we managed to harmonize our implementation. Through clear communication, continuous testing, and the strategic use of debugging tools, we were able to resolve all major issues. Now, the system functions as intended and reflects a well integrated result of our combined efforts.
 
 ## 7. Deliverables
 * Source Code and artifacts
