@@ -16,22 +16,6 @@ Our hotel reservation system is made up of several modules that handle everythin
 ## 2. System Architecture
 RoomRoam is a hotel reservation system we developed in Python. We built it in a way that keeps things organised, clear, and easy to expand later if needed. To do that, we split the system into different modules, each taking care of a specific part of the overall functionality like handling hotel data, managing bookings, or storing guest information. All the data is stored in a local SQL database, and we kept a clean structure in the code to make development and teamwork easier.
 
-### 2.1 Class Diagram
-To structure the data layer of our system, we used a class diagram from the very beginning as a blueprint for building our Python model classes. This diagram outlines all the core entities in the hotel reservation domain and their relationships, such as how hotels are linked to rooms, how guests make bookings, and how invoices are generated.
-![image](https://github.com/user-attachments/assets/89df59ef-a535-40a5-9c4e-a662f7dae8e0)
-#### Some of the key elements include:
-#### Hotel and Room
-which define the structure of the accommodation side.
-#### Guest, Booking and Invoice 
-which handle the reservation and payment process.
-#### RoomType, Facility and RoomFacility
-which allow for more flexible and detailed room descriptions.
-#### Address
-used for both hotels and guests, to standardise location data.
-
-Each class in the model layer was initially implemented based on this design, including method names and attributes that reflect the diagram. While the class diagram provided a solid starting point, we made some adjustments during development to match technical requirements and simplify certain workflows. These changes included modifying relationships, refining method logic, and adapting class responsibilities so the system could run smoothly and meet all functional requirements.
-Overall, using this visual model helped us plan the system more effectively and keep our codebase structured and consistent.
-
 ### 2.1 What the System Is Made Of
 #### Hotels and Rooms
 At the heart of the system is the part that manages hotels and their rooms. Each hotel has things like a name, location, and star rating, while rooms come with details such as type, price, and what facilities are included. We defined all this using Python model classes and linked them up with the database through a custom data access layer.
@@ -52,6 +36,36 @@ To make sure everything worked properly, we also used Deepnote. It allowed us to
 
 ### 2.3 How We Organised the Project
 We planned and tracked our work using a Kanban board, where we could easily move tasks through different stages like “to do”, “in progress”, or “done”. This helped us stay organised and see what was left to finish. If priorities shifted or something took longer than expected, it was easy to adapt and keep the team in sync.
+
+### 3. Implementation
+ 
+#### 3.1 Class Modell
+To structure the data layer of our system, we used a class diagram from the very beginning as a blueprint for building our Python model classes. This diagram outlines all the core entities in the hotel reservation domain and their relationships, such as how hotels are linked to rooms, how guests make bookings, and how invoices are generated.
+![image](https://github.com/user-attachments/assets/89df59ef-a535-40a5-9c4e-a662f7dae8e0)
+
+While the class diagram provided a solid starting point, we made some adjustments during development to match technical requirements and simplify certain workflows. These changes included modifying relationships, refining method logic, and adapting class responsibilities so the system could run smoothly and meet all functional requirements.
+Overall, using this visual model helped us plan the system more effectively and keep our codebase structured and consistent.
+
+We used the given class structure in the folder model as it was mostly complete for the user storys.
+ 
+Addtionally, we created the class *`review`* which is used by the guest to search for reviews of a hotel and to write a review as well.
+The class contains the following attributes:
+* review_id
+* guest_id
+* hotel_id
+* rating
+* comment
+* review_date
+ 
+#### 3.2 Business Logic
+We created a dedicated folder for our business logic containing the different manager roles. These include:
+ 
+* `admin_manager´: Provides methods to get information about bookings and create, udpate and remove hotels
+* `booking_manager` : Provides methods to perform booking processes such as canceling bookings
+* `invoice_manager` : Provdides methods to handle invoices like seeing the details of a specific invoice
+* `master_data_manager` : Provides methods to create, update and delete roomtypes and facilities
+* `review_manager` : Provides use hotel reviews such as creating a customer review
+* `search_manager` : Provides methods to do searching activities such as sesarching for hotels in a city
 
 ## Project
 Link to Kanban Board: https://github.com/orgs/AEPFS2025Group9/projects/2
