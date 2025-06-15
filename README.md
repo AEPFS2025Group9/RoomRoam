@@ -101,7 +101,61 @@ AdminManager.get_room_type_summary_as_df(hotel_id)
 
 To support analytical insights, we introduced functions that export booking data as pandas DataFrames. This enabled a visual dashboard (bar chart) showing room popularity per hotel or across all hotels, supporting admins in optimizing their room allocation strategy.
 
+### 5. Application
+The hotel reservation system is implemented in Python and designed for modularity, separating data access, business logic, and user interaction layers. SQLite is used for persistent data storage, and data visualization is done using matplotlib. The application supports both local development and collaborative online environments.
 
+#### 5.1 Development Environments
+This project was collaboratively developed using both PyCharm (locally) and Deepnote (a cloud-based notebook environment). This hybrid approach allowed the team to:
+
+* Test database logic interactively in Deepnote notebooks
+
+* Build and run the full application in PyCharm using a consistent file structure
+
+* Easily share and debug scripts and outputs across platforms
+
+#### 5.2 Running the Application
+To start the application, run main.py located in the ui folder. On first run:
+
+* The system verifies if critical tables (like reviews) exist, creating them if necessary
+
+* Sample data can be initialized automatically if the database is empty
+
+#### 5.3 Menu Navigation and Features
+The interface is driven by console menus and offers two main paths:
+
+Guest Menu:
+
+* Search hotels (by city, stars, guest capacity, availability, or combined filters)
+
+* View and cancel bookings
+
+* Leave reviews post-stay, triggered directly from the invoice screen
+
+* See existing hotel reviews before booking, including average ratings and guest feedback
+
+Admin Menu:
+
+* Manage hotel records (add, update, delete)
+
+* View all bookings in the system
+
+* Manage master data (room types and facilities)
+
+* Display a room type occupancy chart, either overall or filtered by hotel, showing which room types are most frequently booked
+
+#### 5.4 Review System
+* Reviews are stored in the reviews table and linked to both hotels and guests
+
+* Guests submit ratings (1–5 stars) and comments post-checkout
+
+* These reviews are shown to other users during hotel selection to aid decision-making
+
+#### 5.5 Chart Visualization
+* Admins can view room type popularity using bar charts
+
+* Optionally filter charts by hotel to assess individual performance
+
+* Charts are rendered using matplotlib and pandas DataFrames
 
 
 
@@ -177,3 +231,17 @@ from business_logic.booking_manager import BookingManager
 from business_logic.master_data_manager import MasterDataManager
 from business_logic.search_manager import SearchManager
 ```
+9. (Optional but Recommended) Create Reviews Table
+```
+from data_access.review_dal import ReviewDAL
+ReviewDAL().create_table()
+```
+10. Example Usage Overflow
+```
+admin = AdminManager()
+admin.get_all_hotels()
+```
+search = SearchManager()
+search.search_hotels("Zürich", 3, 4, date(2025, 6, 20), date(2025, 6 22))
+```
+admin.get_room_type_summary_as_df()
