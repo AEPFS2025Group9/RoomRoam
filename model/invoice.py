@@ -5,9 +5,10 @@ class Invoice:
     Model Class Invoice
     """
 
-    def __init__(self, invoice_id: int, booking_id: int, issue_date: date, total_amount: float, is_paid: bool = False):
-        if not isinstance(invoice_id, int) or invoice_id < 0:
-            raise ValueError("Invoice ID must be a positive integer")
+    def __init__(self, invoice_id: int | None, booking_id: int, issue_date: date, total_amount: float,
+                 is_paid: bool = False):
+        if invoice_id is not None and (not isinstance(invoice_id, int) or invoice_id < 0):
+            raise ValueError("Invoice ID must be a positive integer or None")
         if not isinstance(booking_id, int) or booking_id < 0:
             raise ValueError("Booking ID must be a positive integer")
         if not isinstance(total_amount, float) or total_amount < 0:

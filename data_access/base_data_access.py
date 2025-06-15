@@ -3,10 +3,13 @@ import os
 
 class BaseDataAccess:
     def __init__(self, db_path: str = None):
-        self.db_path = db_path or os.environ.get("ROOMROAM_DB_PATH", "database/using_db.db")
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        default_path = os.path.join(base_dir, "database", "hotel_reservation_sample.db")
+        self.db_path = db_path or os.environ.get("ROOMROAM_DB_PATH", default_path)
+
         if not os.path.exists(self.db_path):
             raise FileNotFoundError(f"Database file not found: {self.db_path}")
-    
+
     def _get_connection(self):
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row

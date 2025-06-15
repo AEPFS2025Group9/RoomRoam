@@ -43,10 +43,11 @@ class BookingManager:
         invoice = Invoice(
             invoice_id=None,
             booking_id=booking_id,
-            amount=amount,
+            total_amount=amount,
             issue_date=date.today(),
             is_paid=False
         )
+
         invoice_id = self.invoice_dal.create_invoice(invoice)
 
         return booking_id, invoice_id

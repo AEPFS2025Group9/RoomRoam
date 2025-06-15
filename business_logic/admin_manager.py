@@ -42,13 +42,8 @@ class AdminManager:
     def get_all_hotels(self) -> List[Hotel]:
         """Alle Hotels mit Adressen anzeigen"""
         try:
-            hotels = self.hotel_dal.read_all_hotels()
-            result = []
-            for hotel in hotels:
-                address = self.address_dal.read_address_by_id(hotel.address_id)
-                if address:
-                    result.append(Hotel(hotel.hotel_id, hotel.name, hotel.stars, address))
-            return result
+            return self.hotel_dal.read_all_hotels()
+
         except Exception as e:
             print(f"Fehler beim Abrufen der Hotels: {e}")
             raise
@@ -65,13 +60,7 @@ class AdminManager:
     def get_hotels_by_city(self, city: str) -> List[Hotel]:
         """Hotels nach Stadt filtern"""
         try:
-            hotels = self.hotel_dal.read_hotels_by_city(city)
-            result = []
-            for hotel in hotels:
-                address = self.address_dal.read_address_by_id(hotel.address_id)
-                if address:
-                    result.append(Hotel(hotel.hotel_id, hotel.name, hotel.stars, address))
-            return result
+            return self.hotel_dal.read_all_hotels()
         except Exception as e:
             print(f"Fehler beim Abrufen der Hotels für Stadt '{city}': {e}")
             raise
@@ -87,7 +76,12 @@ class AdminManager:
     def add_hotel(self, name: str, stars: int, street: str, zip_code: str, city: str) -> int:
         """Neues Hotel + Adresse hinzufügen"""
         try:
-            address = Address(0, street, zip_code, city)
+            address = Address(
+                street=street,
+                zip_code=zip_code,
+                city=city,
+                address_id=0
+            )
             address_id = self.address_dal.create_address(address)
             saved_address = self.address_dal.read_address_by_id(address_id)
             hotel = Hotel(0, name, stars, saved_address)
