@@ -37,9 +37,9 @@ To make sure everything worked properly, we also used Deepnote. It allowed us to
 ### 2.3 How We Organised the Project
 We planned and tracked our work using a Kanban board, where we could easily move tasks through different stages like “to do”, “in progress”, or “done”. This helped us stay organised and see what was left to finish. If priorities shifted or something took longer than expected, it was easy to adapt and keep the team in sync.
 
-### 3. Implementation
+## 3. Implementation
  
-#### 3.1 Class Modell
+### 3.1 Class Modell
 To structure the data layer of our system, we used a class diagram from the very beginning as a blueprint for building our Python model classes. This diagram outlines all the core entities in the hotel reservation domain and their relationships, such as how hotels are linked to rooms, how guests make bookings, and how invoices are generated.
 ![image](https://github.com/user-attachments/assets/89df59ef-a535-40a5-9c4e-a662f7dae8e0)
 
@@ -57,7 +57,7 @@ The class contains the following attributes:
 * comment
 * review_date
  
-#### 3.2 Business Logic
+### 3.2 Business Logic
 We created a dedicated folder for our business logic containing the different manager roles. These include:
  
 * `admin_manager´: Provides methods to get information about bookings and create, udpate and remove hotels
@@ -67,17 +67,17 @@ We created a dedicated folder for our business logic containing the different ma
 * `review_manager` : Provides use hotel reviews such as creating a customer review
 * `search_manager` : Provides methods to do searching activities such as sesarching for hotels in a city
 
-### 4. Database Design
+## 4. Database Design
 The hotel reservation system is backed by a relational database, structured according to a normalized schema that was provided by the instructors. This schema includes key entities such as Hotels, Guests, Rooms, Bookings, Invoices, and Facilities. While minor practical extensions (like seasonal pricing and review tracking) were introduced, we stayed true to the original model to maintain clarity and consistency.
 
-#### 4.1 Database Initialization
+### 4.1 Database Initialization
 The database is initialized at runtime through class-based data access layers. Each table (e.g., hotels, rooms, bookings, invoices, reviews) is created if it doesn't already exist, ensuring idempotent startup behavior. Review table creation, for instance, is explicitly triggered via:
 
 ReviewDAL().create_table()
 
 This ensures all necessary structures are in place before any guest or admin operations.
 
-#### 4.2 User Stories and Database Operations
+### 4.2 User Stories and Database Operations
 
 Each user story from the specification was implemented using clean database queries encapsulated in dedicated manager and DAL (Data Access Layer) classes.
 
@@ -97,14 +97,14 @@ AdminManager.get_room_type_summary_as_df(hotel_id)
 * Optional Extensions:
   Dynamic pricing was implemented based on check-in month, affecting invoice generation logic.
 
-#### 4.3 Extensibility and Data Visualization
+### 4.3 Extensibility and Data Visualization
 
 To support analytical insights, we introduced functions that export booking data as pandas DataFrames. This enabled a visual dashboard (bar chart) showing room popularity per hotel or across all hotels, supporting admins in optimizing their room allocation strategy.
 
-### 5. Application
+## 5. Application
 The hotel reservation system is implemented in Python and designed for modularity, separating data access, business logic, and user interaction layers. SQLite is used for persistent data storage, and data visualization is done using matplotlib. The application supports both local development and collaborative online environments.
 
-#### 5.1 Development Environments
+### 5.1 Development Environments
 This project was collaboratively developed using both PyCharm (locally) and Deepnote (a cloud-based notebook environment). This hybrid approach allowed the team to:
 
 * Test database logic interactively in Deepnote notebooks
@@ -113,14 +113,14 @@ This project was collaboratively developed using both PyCharm (locally) and Deep
 
 * Easily share and debug scripts and outputs across platforms
 
-#### 5.2 Running the Application
+### 5.2 Running the Application
 To start the application, run main.py located in the ui folder. On first run:
 
 * The system verifies if critical tables (like reviews) exist, creating them if necessary
 
 * Sample data can be initialized automatically if the database is empty
 
-#### 5.3 Menu Navigation and Features
+### 5.3 Menu Navigation and Features
 The interface is driven by console menus and offers two main paths:
 
 Guest Menu:
@@ -143,14 +143,14 @@ Admin Menu:
 
 * Display a room type occupancy chart, either overall or filtered by hotel, showing which room types are most frequently booked
 
-#### 5.4 Review System
+### 5.4 Review System
 * Reviews are stored in the reviews table and linked to both hotels and guests
 
 * Guests submit ratings (1–5 stars) and comments post-checkout
 
 * These reviews are shown to other users during hotel selection to aid decision-making
 
-#### 5.5 Chart Visualization
+### 5.5 Chart Visualization
 * Admins can view room type popularity using bar charts
 
 * Optionally filter charts by hotel to assess individual performance
