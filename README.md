@@ -68,7 +68,7 @@ We created a dedicated folder for our business logic containing the different ma
 * `search_manager` : Provides methods to do searching activities such as sesarching for hotels in a city
 
 ### 4. Database Design
-The hotel reservation system is backed by a relational database, structured according to a normalized schema that was provided by the instructors. This schema includes key entities such as Hotels, Guests, Rooms, Bookings, Invoices, Facilities, and Reviews. While minor practical extensions (like seasonal pricing and review tracking) were introduced, we stayed true to the original model to maintain clarity and consistency.
+The hotel reservation system is backed by a relational database, structured according to a normalized schema that was provided by the instructors. This schema includes key entities such as Hotels, Guests, Rooms, Bookings, Invoices, and Facilities. While minor practical extensions (like seasonal pricing and review tracking) were introduced, we stayed true to the original model to maintain clarity and consistency.
 
 #### 4.1 Database Initialization
 The database is initialized at runtime through class-based data access layers. Each table (e.g., hotels, rooms, bookings, invoices, reviews) is created if it doesn't already exist, ensuring idempotent startup behavior. Review table creation, for instance, is explicitly triggered via:
