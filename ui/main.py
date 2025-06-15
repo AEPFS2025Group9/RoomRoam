@@ -253,28 +253,6 @@ def view_invoice_flow():
     except Exception as e:
         print(f"Error retrieving invoice: {e}")
 
-def handle_hotel_results(hotels):
-    if not hotels:
-        print("No hotels found.")
-        return
-
-    print("\nMatching Hotels:")
-    print("=" * 50)
-    for h in hotels:
-        print(f"ID: {h.hotel_id} | Name: {h.name} | Stars: {h.stars}")
-        print(f"Address: {h.address.street}, {h.address.zip_code} {h.address.city}")
-
-        reviews = review.get_reviews_for_hotel(h.hotel_id)
-        if reviews:
-            print("Recent Reviews:")
-            for r in reviews[:3]:
-                print(f" - {r.rating}★ on {r.review_date}: {r.comment}")
-            avg_rating = sum(r.rating for r in reviews) / len(reviews)
-            print(f"Average Rating: {avg_rating:.1f}★ based on {len(reviews)} reviews")
-        else:
-            print("No reviews available.")
-        print("-" * 50)
-
 def cancel_booking_flow():
     try:
         booking_id = int(input("\nEnter the Booking ID you want to cancel: ").strip())

@@ -69,8 +69,6 @@ class Address:
 
     @classmethod
     def from_db(cls, address_id, street, zip_code, city):
-        print("DEBUG ▶ Address.from_db():", f"address_id={address_id}", f"street={repr(street)}",
-              f"zip_code={repr(zip_code)}", f"city={repr(city)}")
 
         street = street if isinstance(street, str) and street.strip() else "<unknown>"
         zip_code = zip_code if isinstance(zip_code, str) and zip_code.strip() else "0000"
