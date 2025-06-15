@@ -17,7 +17,7 @@ Our hotel reservation system is made up of several modules that handle everythin
 
 RoomRoam is a hotel reservation system we developed in Python. We built it in a way that keeps things organised, clear, and easy to expand later if needed. To do that, we split the system into different modules, each taking care of a specific part of the overall functionality like handling hotel data, managing bookings, or storing guest information. All the data is stored in a local SQL database, and we kept a clean structure in the code to make development and teamwork easier.
 
-2.1 What the System Is Made Of
+### 2.1 What the System Is Made Of
 
 Hotels and Rooms
 At the heart of the system is the part that manages hotels and their rooms. Each hotel has things like a name, location, and star rating, while rooms come with details such as type, price, and what facilities are included. We defined all this using Python model classes and linked them up with the database through a custom data access layer.
@@ -31,7 +31,7 @@ Users can search for hotels based on their needs – like location, number of gu
 Admin
 Admins have access to tools for editing background data, like room types or available facilities. These changes go directly into the database without the need to adjust any code, so managing the system stays flexible.
 
-2.2 Tools and Technologies We Used
+### 2.2 Tools and Technologies We Used
 
 Language and Database
 We used Python to build the whole system because it’s straightforward and easy to work with in teams. For storing the data, we chose a simple local SQL database. Instead of using a full ORM like SQLAlchemy, we wrote our own data access classes to keep things more transparent.
@@ -42,7 +42,7 @@ Most of the development was done in PyCharm. It made writing, testing, and navig
 Deepnote for Testing and Validation
 To make sure everything worked properly, we also used Deepnote. It allowed us to run parts of the system in notebooks, inspect the output, and test database operations on the fly. This was especially helpful for checking if search filters or booking logic were doing what they should. We also used it to quickly debug and test changes before pushing them to GitHub.
 
-2.3 How We Organised the Project
+### 2.3 How We Organised the Project
 We planned and tracked our work using a Kanban board, where we could easily move tasks through different stages like “to do”, “in progress”, or “done”. This helped us stay organised and see what was left to finish. If priorities shifted or something took longer than expected, it was easy to adapt and keep the team in sync.
 
 ## Project
