@@ -8,7 +8,7 @@ Alex Suter - Classes, Debugging, Main User Stories
 
 Jiapei Sun - Classes, Debugging, Main User Stories
 
-Damian Martin - Classes, Debugging, DB User Stories, Data Access
+Damian Martin - Classes, Debugging, DB User Stories, Data Access, User Interface
 
 ## 1. Introduction
 Our hotel reservation system is made up of several modules that handle everything from managing hotels, rooms and their facilities, to processing bookings, payments, and user data. To keep things organised, the project is divided into different folders each focused on a specific part of the system. These include the user interface, business logic, data access, model classes, and the database. This structure helped us build the system in a clear and modular way.
